@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mobeen8877tt-sudo.github.io/gulfrozgar/sitemap.xml
