@@ -395,6 +395,10 @@
   .more-btn{display:inline-block;padding:13px 34px;border-radius:14px;background:var(--grad);color:#fff;font-weight:700;font-size:15px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(139,92,246,.4);transition:transform .15s}
   .more-btn:hover{transform:translateY(-2px)}
   .more-btn:active{transform:translateY(0)}
+
+  .ad-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;margin:18px auto;min-height:60px;max-width:100%;overflow:hidden}
+  .ad-slot .ad-label{font-size:10px;letter-spacing:1.5px;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:6px}
+  #ad-bottom{min-height:260px}
 </style>
 </head>
 <body>
@@ -425,7 +429,19 @@
   </section>
 
   <!-- ADSTERRA AD SLOT -->
-  <div id="ad-top"></div>
+  <div class="ad-slot" id="ad-top">
+    <span class="ad-label">Advertisement</span>
+    <script>
+      atOptions = {
+        'key' : '611584b9d8d0040ece7f6699f9130d96',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highrevenueformat.com/611584b9d8d0040ece7f6699f9130d96/invoke.js"></script>
+  </div>
 
   <div class="search-box fade-in d2">
     <span class="icon" aria-hidden="true">🔍</span>
@@ -471,7 +487,19 @@
   <section class="jobs" id="jobs" aria-label="Job listings"></section>
 
   <!-- ADSTERRA AD SLOT -->
-  <div id="ad-bottom"></div>
+  <div class="ad-slot" id="ad-bottom">
+    <span class="ad-label">Advertisement</span>
+    <script>
+      atOptions = {
+        'key' : 'ec296e9677ac5ff1c619990967066b64',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highrevenueformat.com/ec296e9677ac5ff1c619990967066b64/invoke.js"></script>
+  </div>
 
   <section class="wa-banner" aria-label="WhatsApp jobs alerts">
     <h2>📲 Get daily Gulf jobs on WhatsApp</h2>
