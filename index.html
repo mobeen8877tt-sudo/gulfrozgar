@@ -6,6 +6,8 @@
 <title>GulfRozgar — Daily Gulf Jobs for Pakistanis (UAE, Saudi Arabia, Qatar)</title>
 <meta name="description" content="GulfRozgar: roz naye Gulf jobs for Pakistanis — UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman. Updated daily, 100% free. Search, filter and apply in one tap.">
 <link rel="icon" type="image/webp" href="logo.webp">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="canonical" href="https://mobeen8877tt-sudo.github.io/gulfrozgar/">
 <meta name="theme-color" content="#07070d">
 <meta property="og:type" content="website">
@@ -1163,6 +1165,14 @@
   setReviewState();
   loadReviews();
 })();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
 </script>
 </body>
 </html>
