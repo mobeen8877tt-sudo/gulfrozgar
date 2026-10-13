@@ -1070,7 +1070,7 @@
   })();
   function friendlyAuthError(err){
     var code = (err && err.code) || '';
-    if(code === 'auth/unauthorized-domain') return 'Domain not allowed \u2014 add mobeen8877tt-sudo.github.io/gulfrozgar in Firebase \u2192 Authentication \u2192 Settings \u2192 Authorized domains';
+    if(code === 'auth/unauthorized-domain') return 'Domain not allowed \u2014 add mobeen8877tt-sudo.github.io in Firebase \u2192 Authentication \u2192 Settings \u2192 Authorized domains';
     if(code === 'auth/popup-blocked') return 'Popup blocked \u2014 please allow popups for this site, then try again';
     if(code === 'auth/operation-not-allowed') return 'Google sign-in is not enabled in the Firebase console';
     if(code === 'auth/popup-closed-by-user') return 'Sign-in window was closed \u2014 please try again';
