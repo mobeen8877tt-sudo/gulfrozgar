@@ -1,5 +1,83 @@
 [
   {
+    "apply_url": "https://www.naukrigulf.com/walk-in-interview-heavy-duty-driver-truck-driver-trailer-driver-jobs-in-dubai-uae-in-a-a-al-moosa-enterprises-2-to-5-years-n-cd-80814-jid-141026000011",
+    "company": "Thrifty Car Rental",
+    "country": "UAE",
+    "description": "Walk-in interview for heavy-duty drivers with a valid UAE trailer license; fixed monthly salary plus incentives and overtime.",
+    "id": "nk-heavy-duty-driver-thrifty-dubai",
+    "location": "Dubai, UAE",
+    "posted": "2026-10-14",
+    "salary": "Not specified",
+    "source": "NaukriGulf",
+    "title": "Heavy Duty Driver / Truck Driver / Trailer Driver",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.naukrigulf.com/electrician-jobs-in-dubai-uae-in-alpha-data-processing-services-llc-3-to-5-years-n-cd-84554-jid-121026000226",
+    "company": "Alpha Data PJSC",
+    "country": "UAE",
+    "description": "Electrician with 3-5 years experience for project work across Dubai and Abu Dhabi.",
+    "id": "nk-electrician-alpha-data",
+    "location": "Dubai & Abu Dhabi, UAE",
+    "posted": "2026-10-14",
+    "salary": "Not specified",
+    "source": "NaukriGulf",
+    "title": "Electrician",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.naukrigulf.com/waiter-waitress-banquets-jobs-in-dubai-uae-in-delano-0-to-5-years-n-cd-10050787-jid-131026500158",
+    "company": "Delano",
+    "country": "UAE",
+    "description": "Banquet service staff for a luxury Dubai hotel, serving events and private functions.",
+    "id": "nk-waiter-banquet-delano",
+    "location": "Dubai, UAE",
+    "posted": "2026-10-13",
+    "salary": "Not specified",
+    "source": "NaukriGulf",
+    "title": "Waiter / Waitress - Banquets",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.naukrigulf.com/bus-driver-heavy-vehicle-driver-jobs-in-abu-dhabi-uae-in-bastech-group-of-companies-1-to-6-years-n-cd-377763-jid-131026000081",
+    "company": "BAStech Group Of Companies",
+    "country": "UAE",
+    "description": "Bus and heavy vehicle driver holding a UAE Category 5-6 license, with monthly salary of AED 2,700-3,000 across Abu Dhabi, Dubai and Sharjah.",
+    "id": "nk-bus-driver-bastech-uae",
+    "location": "Abu Dhabi, Dubai & Sharjah, UAE",
+    "posted": "2026-10-13",
+    "salary": "AED 2,700 - 3,000",
+    "source": "NaukriGulf",
+    "title": "Bus Driver / Heavy Vehicle Driver (Category 5-6 License)",
+    "type": "Full Time"
+  },
+  {
+    "id": "gt-646362",
+    "title": "Driver",
+    "company": "Al Futtaim Group",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-13",
+    "description": "RTA-certified light vehicle and bus driver for Dubai taxi operations; open to any nationality.",
+    "apply_url": "https://www.gulftalent.com/uae/jobs/driver-646362",
+    "source": "GulfTalent"
+  },
+  {
+    "id": "gt-646123",
+    "title": "Personal Caretaker",
+    "company": "Genie",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "4000 AED",
+    "type": "Full Time",
+    "posted": "2026-10-13",
+    "description": "Full-time caregiver and companion for an elderly lady in Dubai, AED 4,000/month inclusive of allowances.",
+    "apply_url": "https://www.gulftalent.com/uae/jobs/personal-caretaker-646123",
+    "source": "GulfTalent"
+  },
+  {
     "id": "gt-645775",
     "title": "Multiskilled Technician",
     "company": "Hilton Luxor Resort & Spa",
@@ -65,6 +143,19 @@
     "source": "Bayt"
   },
   {
+    "id": "gt-645902",
+    "title": "Waiter",
+    "company": "AccorHotels",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-12",
+    "description": "Waiter for AccorHotels in Dubai serving restaurant and banquet guests; open to any nationality.",
+    "apply_url": "https://www.gulftalent.com/uae/jobs/waiter-645902",
+    "source": "GulfTalent"
+  },
+  {
     "id": "gt-645719",
     "title": "Fit Out Foreman",
     "company": "Nerkal Building Contracting",
@@ -104,6 +195,32 @@
     "source": "GulfTalent"
   },
   {
+    "id": "bayt-salesman-candle-power",
+    "title": "Salesman",
+    "company": "CANDLE POWER ELECTRICAL CONTRACING LLC",
+    "location": "Abu Dhabi, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-12",
+    "description": "Sell electrical and plumbing building materials to contractors and customers in Abu Dhabi; UAE experience and driving licence preferred.",
+    "apply_url": "https://www.bayt.com/en/uae/jobs/salesman-5482333/",
+    "source": "Bayt"
+  },
+  {
+    "id": "bayt-production-operator-iffco",
+    "title": "Production Operator - Packaging",
+    "company": "IFFCO Group",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "AED 1,836 - AED 3,673",
+    "type": "Full Time",
+    "posted": "2026-10-12",
+    "description": "Operate packaging lines at a Dubai FMCG factory, handling production, quality checks and documentation; 2 years experience required.",
+    "apply_url": "https://www.bayt.com/en/uae/jobs/production-operator-packaging-5475398/",
+    "source": "Bayt"
+  },
+  {
     "id": "bayt-general-technician-element-doha",
     "title": "General Technician (Element West Bay Doha)",
     "company": "Element",
@@ -114,6 +231,19 @@
     "posted": "2026-10-12",
     "description": "Hotel maintenance technician attending to guest repair requests at the Element West Bay property in Doha.",
     "apply_url": "https://www.bayt.com/en/qatar/jobs/general-technician-element-west-bay-doha-75312278/",
+    "source": "Bayt"
+  },
+  {
+    "id": "bayt-building-supervisor-bozgun",
+    "title": "Building / Technical Supervisor",
+    "company": "Bozgun property management LLC",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "AED 3,673 - AED 5,509",
+    "type": "Full Time",
+    "posted": "2026-10-12",
+    "description": "Oversee daily building maintenance operations in Dubai, leading technicians and contractors across MEP, HVAC, electrical and plumbing work.",
+    "apply_url": "https://www.bayt.com/en/uae/jobs/building-technical-supervisor-5482312/",
     "source": "Bayt"
   },
   {
@@ -141,6 +271,19 @@
     "source": "GulfTalent",
     "title": "GSE Electrician - Junior Maintenance Technician",
     "type": "Full Time"
+  },
+  {
+    "id": "gt-645490",
+    "title": "Sale Associate",
+    "company": "Professional Partners Trading - PPT",
+    "location": "Doha, Qatar",
+    "country": "Qatar",
+    "salary": "4000 - 7000 QAR",
+    "type": "Part Time",
+    "posted": "2026-10-11",
+    "description": "Part-time retail sales associate in Qatar earning QAR 4,000-7,000; for residents with a valid QID.",
+    "apply_url": "https://www.gulftalent.com/qatar/jobs/sale-associate-645490",
+    "source": "GulfTalent"
   },
   {
     "apply_url": "https://www.bayt.com/en/saudi-arabia/jobs/bar-waitress-and-restaurant-waiters-jobs/",
@@ -1079,6 +1222,19 @@
     "source": "Bayt"
   },
   {
+    "id": "bayt-furniture-supervisor-asfour",
+    "title": "Supervisor / Team Lead - Furniture Manufacturing",
+    "company": "Asfour Furniture Manufacturing L.L.C.",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "AED 1,836 - AED 3,673",
+    "type": "Full Time",
+    "posted": "2026-10-07",
+    "description": "Lead joinery and upholstery teams at a Dubai furniture factory, managing daily production, quality checks and deadlines.",
+    "apply_url": "https://www.bayt.com/en/uae/jobs/supervisor-team-lead-furniture-manufacturing-5481213/",
+    "source": "Bayt"
+  },
+  {
     "id": "bayt-driver-supervisor-qatar",
     "title": "Driver / Supervisor",
     "company": "Confidential Company",
@@ -1115,6 +1271,19 @@
     "posted": "2026-10-07",
     "description": "Hands-on cable installation, termination and testing work supporting low-current and ELV infrastructure projects.",
     "apply_url": "https://www.bayt.com/en/uae/jobs/electrician-jobs-in-dubai/",
+    "source": "Bayt"
+  },
+  {
+    "id": "bayt-automotive-mechanic-elite",
+    "title": "Automotive Mechanic",
+    "company": "elite one stop garage",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "AED 1,836 - AED 3,673",
+    "type": "Full Time",
+    "posted": "2026-10-07",
+    "description": "Diagnose and repair American and German cars at a Dubai garage - engines, transmissions, suspension, brakes and AC work.",
+    "apply_url": "https://www.bayt.com/en/uae/jobs/automotive-mechanic-5481091/",
     "source": "Bayt"
   },
   {
@@ -1246,5 +1415,18 @@
     "source": "GulfTalent",
     "title": "Technician (Automotive)",
     "type": "Full Time"
+  },
+  {
+    "id": "bayt-cleaning-supervisor-riyadh",
+    "title": "Cleaning Supervisor",
+    "company": "Clean Go",
+    "location": "Riyadh, Saudi Arabia",
+    "country": "Saudi Arabia",
+    "salary": "SAR 1,875 - SAR 3,750",
+    "type": "Full Time",
+    "posted": "2026-10-06",
+    "description": "Supervise cleaning teams at client sites in Riyadh - training staff, checking work quality and handling client feedback.",
+    "apply_url": "https://www.bayt.com/en/saudi-arabia/jobs/%D9%85%D8%B4%D8%B1%D9%81-%D8%B4%D8%B1%D9%83%D8%A9-%D8%AA%D9%86%D8%B8%D9%8A%D9%81-5480860/",
+    "source": "Bayt"
   }
 ]
