@@ -129,6 +129,60 @@
   @media (max-width:759px) {
     #sidebar { display:none; }
   }
+  /* ---- knowledge core panel ---- */
+  #kc-panel {
+    position:fixed; z-index:30; top:0; bottom:0;
+    left:200px; right:340px;
+    background:rgba(5,9,18,.97); backdrop-filter:blur(10px);
+    border-left:1px solid rgba(127,212,255,.12);
+    border-right:1px solid rgba(127,212,255,.12);
+    display:none; flex-direction:column;
+    padding:22px 26px; overflow-y:auto;
+  }
+  #kc-panel.open { display:flex; }
+  #kc-panel::-webkit-scrollbar { width:4px; }
+  #kc-panel::-webkit-scrollbar-thumb { background:rgba(127,212,255,.2); border-radius:2px; }
+  #kc-panel .ksec { color:#3d5a7a; font-size:10px; letter-spacing:3px; margin-bottom:8px; }
+  #kc-panel h2 { color:#fff; font-size:21px; letter-spacing:4px; margin:0 0 14px; }
+  #kc-panel h2 .cur { display:inline-block; width:10px; height:20px; background:#7fd4ff; margin-left:8px; animation:blink 1s infinite; vertical-align:-3px; }
+  #kc-dump {
+    background:rgba(10,18,32,.9); border:1px solid rgba(127,212,255,.2); border-radius:12px;
+    padding:14px 16px; margin-bottom:18px;
+  }
+  #kc-dump .dp1 { color:#8ba3c7; font-size:12.5px; margin-bottom:10px; }
+  #kc-dump .dp2 { color:#3d5a7a; font-size:11px; letter-spacing:1px; }
+  #kc-panel .back { color:#8ba3c7; font-size:11px; letter-spacing:2px; margin-bottom:14px; cursor:pointer; display:flex; align-items:center; gap:8px; }
+  #kc-panel .back:hover { color:#fff; }
+  #kc-panel .kclose { margin-left:auto; color:#3d5a7a; cursor:pointer; font-size:15px; padding:4px 8px; }
+  #kc-panel .kclose:hover { color:#fff; }
+  #kc-panel .ktitle { color:#d5e9ff; font-size:14px; font-weight:600; margin-bottom:4px; }
+  #kc-panel .ksub { color:#4a7ba6; font-size:11.5px; margin-bottom:14px; }
+  #kc-query {
+    width:100%; background:rgba(10,18,32,.9); border:1px solid rgba(127,212,255,.2);
+    border-radius:20px; outline:none; color:#eaf3ff; font-size:13px; padding:11px 18px;
+    font-family:inherit; margin-bottom:12px; box-sizing:border-box;
+  }
+  #kc-query::placeholder { color:#3d4d6b; }
+  #kc-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+  #kc-tags .tg {
+    font-size:11.5px; color:#8ba3c7; border:1px solid rgba(127,212,255,.22);
+    padding:6px 14px; border-radius:16px; cursor:pointer;
+  }
+  #kc-tags .tg:hover { background:rgba(127,212,255,.1); color:#fff; }
+  #kc-panel .nums { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+  #kc-panel .num {
+    background:rgba(10,18,32,.85); border:1px solid rgba(127,212,255,.14);
+    border-radius:12px; padding:16px; text-align:center;
+  }
+  #kc-panel .num .n { color:#fff; font-size:24px; font-weight:700; }
+  #kc-panel .num .l { color:#4a7ba6; font-size:9.5px; letter-spacing:2px; margin-top:5px; }
+  #kc-panel .dom { margin-bottom:8px; }
+  #kc-panel .dom .dr { display:flex; justify-content:space-between; font-size:12px; color:#8ba3c7; margin-bottom:5px; }
+  #kc-panel .dom .bar { height:5px; background:rgba(127,212,255,.1); border-radius:3px; overflow:hidden; }
+  #kc-panel .dom .bar .f { height:100%; background:linear-gradient(90deg,#2a7fff,#7fd4ff); border-radius:3px; }
+  @media (max-width:759px) {
+    #kc-panel { left:0; right:0; }
+  }
   #voice-switch {
     pointer-events:auto; display:flex; gap:8px; margin-top:10px; align-items:center;
   }
@@ -187,6 +241,36 @@
     <button id="chatsend">➤</button>
   </div>
 </aside>
+<div id="kc-panel">
+  <div class="back"><span id="kc-back">◀ BACK · DIRECTORY</span><span class="kclose" id="kc-x">✕</span></div>
+  <div class="ksec">// KNOWLEDGE CORE</div>
+  <h2>SHAMPI ENGINE<span class="cur"></span></h2>
+  <div id="kc-dump">
+    <div class="dp1">dump into the brain… or drop documents</div>
+    <div class="dp2">text · voice · drag or upload</div>
+  </div>
+  <div class="ktitle">Shampi</div>
+  <div class="ksub">the company knowledge brain</div>
+  <input id="kc-query" placeholder="⌕ query the whole brain…">
+  <div id="kc-tags">
+    <span class="tg">Automation</span><span class="tg">Client Delivery</span>
+    <span class="tg">Finance</span><span class="tg">Growth & Marketing</span>
+    <span class="tg">Operations</span>
+  </div>
+  <div class="ksec">THE BRAIN IN NUMBERS</div>
+  <div class="nums">
+    <div class="num"><div class="n">128</div><div class="l">NOTES</div></div>
+    <div class="num"><div class="n">8</div><div class="l">FOLDERS</div></div>
+    <div class="num"><div class="n">996</div><div class="l">BI-DIR LINKS</div></div>
+    <div class="num"><div class="n">8</div><div class="l">CLUSTERS</div></div>
+  </div>
+  <div class="ksec">KNOWLEDGE DOMAINS</div>
+  <div class="dom"><div class="dr"><span>Automation</span><span>15</span></div><div class="bar"><div class="f" style="width:75%"></div></div></div>
+  <div class="dom"><div class="dr"><span>Client Delivery</span><span>15</span></div><div class="bar"><div class="f" style="width:75%"></div></div></div>
+  <div class="dom"><div class="dr"><span>Finance</span><span>15</span></div><div class="bar"><div class="f" style="width:75%"></div></div></div>
+  <div class="dom"><div class="dr"><span>Growth & Marketing</span><span>12</span></div><div class="bar"><div class="f" style="width:60%"></div></div></div>
+  <div class="dom"><div class="dr"><span>Operations</span><span>10</span></div><div class="bar"><div class="f" style="width:50%"></div></div></div>
+</div>
 <script>
 (() => {
   const canvas = document.getElementById('brain-canvas');
@@ -482,12 +566,17 @@
   addMsg('a','Salam jani! Main Shampi hun — tumhara AI assistant. Kya baat karni hai? 😊');
 
   /* ---------- sidebar nav ---------- */
+  const kcp=document.getElementById('kc-panel');
   document.querySelectorAll('#sidebar .ni').forEach(n=>{
     n.addEventListener('click',()=>{
       document.querySelectorAll('#sidebar .ni').forEach(x=>x.classList.remove('on'));
       n.classList.add('on');
+      if(n.dataset.nav==='engine'){kcp.classList.add('open');}
+      else{kcp.classList.remove('open');}
     });
   });
+  document.getElementById('kc-back').addEventListener('click',()=>{kcp.classList.remove('open');});
+  document.getElementById('kc-x').addEventListener('click',()=>{kcp.classList.remove('open');});
 })();
 </script>
 </body>
