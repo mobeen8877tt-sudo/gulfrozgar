@@ -126,9 +126,56 @@
   @media (min-width:760px) {
     #ui { left:200px; }
   }
-  @media (max-width:759px) {
-    #sidebar { display:none; }
+  /* ---- generic section panel ---- */
+  #sec-panel {
+    position:fixed; z-index:30; top:0; bottom:0;
+    left:200px; right:340px;
+    background:rgba(5,9,18,.97); backdrop-filter:blur(10px);
+    border-left:1px solid rgba(127,212,255,.12);
+    border-right:1px solid rgba(127,212,255,.12);
+    display:none; flex-direction:column;
+    padding:22px 26px; overflow-y:auto;
   }
+  #sec-panel.open { display:flex; }
+  #sec-panel::-webkit-scrollbar { width:4px; }
+  #sec-panel::-webkit-scrollbar-thumb { background:rgba(127,212,255,.2); border-radius:2px; }
+  #sec-panel .ksec { color:#3d5a7a; font-size:10px; letter-spacing:3px; margin-bottom:8px; }
+  #sec-panel h2 { color:#fff; font-size:21px; letter-spacing:4px; margin:0 0 14px; }
+  #sec-panel h2 .cur { display:inline-block; width:10px; height:20px; background:#7fd4ff; margin-left:8px; animation:blink 1s infinite; vertical-align:-3px; }
+  #sec-panel .back { color:#8ba3c7; font-size:11px; letter-spacing:2px; margin-bottom:14px; cursor:pointer; display:flex; align-items:center; gap:8px; }
+  #sec-panel .back:hover { color:#fff; }
+  #sec-panel .kclose { margin-left:auto; color:#3d5a7a; cursor:pointer; font-size:15px; padding:4px 8px; }
+  #sec-panel .kclose:hover { color:#fff; }
+  /* keep old kc-panel styles for reference */
+  #kc-panel { display:none !important; }
+  @media (max-width:759px) {
+    #sec-panel { left:0; right:0; }
+  }
+  /* funnel */
+  .funnel-stages { position:relative; display:flex; align-items:flex-start; justify-content:space-between; padding:30px 10px 20px; margin-bottom:16px; }
+  .fstage { text-align:center; z-index:2; }
+  .fstage .circ { width:52px; height:52px; border-radius:50%; border:2px solid #2dd4bf; margin:0 auto 8px; display:flex; align-items:center; justify-content:center; background:rgba(45,212,191,.08); box-shadow:0 0 16px rgba(45,212,191,.25); }
+  .fstage .circ .in { width:22px; height:22px; border-radius:50%; background:rgba(45,212,191,.35); }
+  .fstage .nm { color:#d5e9ff; font-size:10px; letter-spacing:2px; }
+  .fstage .ct { color:#4a7ba6; font-size:10px; margin-top:3px; }
+  .fline { flex:1; height:1px; background:linear-gradient(90deg,rgba(45,212,191,.4),rgba(45,212,191,.15)); margin-top:26px; }
+  .jtable { width:100%; border-collapse:collapse; font-size:11.5px; margin-top:12px; }
+  .jtable th { color:#3d5a7a; text-align:left; padding:8px 10px; letter-spacing:1.5px; font-size:9.5px; border-bottom:1px solid rgba(127,212,255,.12); }
+  .jtable td { color:#8ba3c7; padding:9px 10px; border-bottom:1px solid rgba(127,212,255,.06); }
+  .jtable tr:hover td { color:#d5e9ff; background:rgba(127,212,255,.04); }
+  /* generic cards */
+  .cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+  .card { background:rgba(10,18,32,.85); border:1px solid rgba(127,212,255,.14); border-radius:12px; padding:15px; }
+  .card .ct-t { color:#d5e9ff; font-size:13px; font-weight:600; margin-bottom:6px; }
+  .card .ct-d { color:#4a7ba6; font-size:11.5px; line-height:1.6; }
+  .card .ct-n { color:#fff; font-size:22px; font-weight:700; }
+  .card .ct-l { color:#4a7ba6; font-size:9.5px; letter-spacing:2px; margin-top:4px; }
+  .rows { display:flex; flex-direction:column; gap:8px; }
+  .row { background:rgba(10,18,32,.85); border:1px solid rgba(127,212,255,.12); border-radius:10px; padding:12px 15px; display:flex; align-items:center; gap:12px; }
+  .row .ri { font-size:17px; }
+  .row .rt { color:#d5e9ff; font-size:12.5px; flex:1; }
+  .row .rs { color:#4ade80; font-size:10px; letter-spacing:1px; }
+  .row .rs.off { color:#4a7ba6; }
   /* ---- knowledge core panel ---- */
   #kc-panel {
     position:fixed; z-index:30; top:0; bottom:0;
@@ -241,7 +288,11 @@
     <button id="chatsend">➤</button>
   </div>
 </aside>
-<div id="kc-panel">
+<div id="sec-panel">
+  <div class="back"><span id="sec-back">◀ BACK</span><span class="kclose" id="sec-x">✕</span></div>
+  <div id="sec-body"></div>
+</div>
+<div id="kc-panel" style="display:none">
   <div class="back"><span id="kc-back">◀ BACK · DIRECTORY</span><span class="kclose" id="kc-x">✕</span></div>
   <div class="ksec">// KNOWLEDGE CORE</div>
   <h2>SHAMPI ENGINE<span class="cur"></span></h2>
@@ -565,18 +616,92 @@
   chatin.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
   addMsg('a','Salam jani! Main Shampi hun — tumhara AI assistant. Kya baat karni hai? 😊');
 
+  /* ---------- section panels ---------- */
+  const secPanel=document.getElementById('sec-panel'), secBody=document.getElementById('sec-body');
+  const SECTIONS={
+  home:{t:'HOME',s:'// COMMAND CENTER',h:`<div class="cards">
+    <div class="card"><div class="ct-n">21</div><div class="ct-l">SYSTEMS LIVE</div></div>
+    <div class="card"><div class="ct-n">15</div><div class="ct-l">AI AGENTS</div></div>
+    <div class="card"><div class="ct-n">128</div><div class="ct-l">BRAIN NOTES</div></div>
+    <div class="card"><div class="ct-n">7</div><div class="ct-l">CONVERTED</div></div></div>
+    <div class="ksec">RECENT ACTIVITY</div><div class="rows">
+    <div class="row"><span class="ri">💬</span><span class="rt">New message in Comms</span><span class="rs">2m</span></div>
+    <div class="row"><span class="ri">🔻</span><span class="rt">Lead moved to Engaged</span><span class="rs">18m</span></div>
+    <div class="row"><span class="ri">🧠</span><span class="rt">Brain note added</span><span class="rs">1h</span></div></div>`},
+  comms:{t:'COMMS',s:'// COMMUNICATIONS',h:`<div class="rows">
+    <div class="row"><span class="ri">📧</span><span class="rt">Gmail — 3 unread threads</span><span class="rs">LIVE</span></div>
+    <div class="row"><span class="ri">💬</span><span class="rt">WhatsApp — 5 new messages</span><span class="rs">LIVE</span></div>
+    <div class="row"><span class="ri">📣</span><span class="rt">Broadcast channel — ready</span><span class="rs off">IDLE</span></div>
+    <div class="row"><span class="ri">🤖</span><span class="rt">Comms Agent — auto-replies on</span><span class="rs">LIVE</span></div></div>
+    <div class="ksec" style="margin-top:16px">CHANNELS</div><div class="cards">
+    <div class="card"><div class="ct-t">Gmail Worker</div><div class="ct-d">Reads, drafts & sends on approval</div></div>
+    <div class="card"><div class="ct-t">WhatsApp</div><div class="ct-d">Direct line to clients</div></div></div>`},
+  funnel:{t:'FUNNEL',s:'// CLIENT PIPELINE',h:`<div class="funnel-stages" id="fstages">
+    <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">FIRST TOUCH</div><div class="ct">13</div></div><div class="fline"></div>
+    <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">ENGAGED</div><div class="ct">13 · 100%</div></div><div class="fline"></div>
+    <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">NURTURED</div><div class="ct">11 · 84.6%</div></div><div class="fline"></div>
+    <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">OPTED IN</div><div class="ct">10 · 90.9%</div></div><div class="fline"></div>
+    <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">CONVERTED</div><div class="ct">7 · 53.8%</div></div></div>
+    <div class="ksec">CLIENT JOURNEY</div>
+    <table class="jtable"><tr><th>CLIENT</th><th>STAGE</th><th>STATUS</th></tr>
+    <tr><td>Ahmed Trading</td><td>Converted</td><td>🟢 Active</td></tr>
+    <tr><td>Sara Boutique</td><td>Opted In</td><td>🟡 Follow-up</td></tr>
+    <tr><td>Khalid Motors</td><td>Nurtured</td><td>🟡 Warm</td></tr>
+    <tr><td>Layla Salon</td><td>Engaged</td><td>🔵 New</td></tr></table>`},
+  workflows:{t:'WORKFLOWS',s:'// AUTOMATIONS',h:`<div class="rows">
+    <div class="row"><span class="ri">⚙️</span><span class="rt">Morning video pipeline</span><span class="rs">LIVE</span></div>
+    <div class="row"><span class="ri">⚙️</span><span class="rt">Night video pipeline</span><span class="rs">LIVE</span></div>
+    <div class="row"><span class="ri">⚙️</span><span class="rt">Outreach reply watch</span><span class="rs">LIVE</span></div>
+    <div class="row"><span class="ri">⚙️</span><span class="rt">Daily jobs scrape</span><span class="rs">LIVE</span></div>
+    <div class="row"><span class="ri">⚙️</span><span class="rt">Lead follow-up sequence</span><span class="rs off">PAUSED</span></div></div>`},
+  content:{t:'CONTENT',s:'// CONTENT QUEUE',h:`<div class="rows">
+    <div class="row"><span class="ri">🎬</span><span class="rt">Morning quote video — scheduled 09:30</span><span class="rs">QUEUED</span></div>
+    <div class="row"><span class="ri">🎬</span><span class="rt">Night quote video — scheduled 21:30</span><span class="rs">QUEUED</span></div>
+    <div class="row"><span class="ri">📝</span><span class="rt">Job promo graphic — ready</span><span class="rs">READY</span></div></div>
+    <div class="ksec" style="margin-top:16px">PLATFORMS</div><div class="cards">
+    <div class="card"><div class="ct-t">Facebook</div><div class="ct-d">luxury life page</div></div>
+    <div class="card"><div class="ct-t">Instagram</div><div class="ct-d">@mobeen.1200</div></div></div>`},
+  finances:{t:'FINANCES',s:'// MONEY OVERVIEW',h:`<div class="cards">
+    <div class="card"><div class="ct-n">1,240</div><div class="ct-l">AED · THIS MONTH</div></div>
+    <div class="card"><div class="ct-n">3</div><div class="ct-l">ACTIVE DEALS</div></div></div>
+    <div class="ksec">RECENT</div><div class="rows">
+    <div class="row"><span class="ri">💵</span><span class="rt">PayPal payout received</span><span class="rs">+124.59 AED</span></div>
+    <div class="row"><span class="ri">🧾</span><span class="rt">Tabby installment — iPhone</span><span class="rs off">-92.52 AED</span></div></div>`},
+  engine:{t:'SHAMPI ENGINE',s:'// KNOWLEDGE CORE',h:`<div class="ksec" style="margin-bottom:14px">dump into the brain… or drop documents<br><span style="letter-spacing:1px">text · voice · drag or upload</span></div>
+    <div class="ktitle" style="color:#d5e9ff;font-size:14px;font-weight:600">Shampi</div>
+    <div class="ksub" style="color:#4a7ba6;font-size:11.5px;margin-bottom:14px">the company knowledge brain</div>
+    <input id="kc-query" placeholder="⌕ query the whole brain…" style="width:100%;background:rgba(10,18,32,.9);border:1px solid rgba(127,212,255,.2);border-radius:20px;outline:none;color:#eaf3ff;font-size:13px;padding:11px 18px;font-family:inherit;margin-bottom:12px;box-sizing:border-box">
+    <div id="kc-tags" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+    <span class="tg" style="font-size:11.5px;color:#8ba3c7;border:1px solid rgba(127,212,255,.22);padding:6px 14px;border-radius:16px">Automation</span>
+    <span class="tg" style="font-size:11.5px;color:#8ba3c7;border:1px solid rgba(127,212,255,.22);padding:6px 14px;border-radius:16px">Client Delivery</span>
+    <span class="tg" style="font-size:11.5px;color:#8ba3c7;border:1px solid rgba(127,212,255,.22);padding:6px 14px;border-radius:16px">Finance</span>
+    <span class="tg" style="font-size:11.5px;color:#8ba3c7;border:1px solid rgba(127,212,255,.22);padding:6px 14px;border-radius:16px">Growth & Marketing</span>
+    <span class="tg" style="font-size:11.5px;color:#8ba3c7;border:1px solid rgba(127,212,255,.22);padding:6px 14px;border-radius:16px">Operations</span></div>
+    <div class="ksec">THE BRAIN IN NUMBERS</div><div class="nums" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+    <div class="num" style="background:rgba(10,18,32,.85);border:1px solid rgba(127,212,255,.14);border-radius:12px;padding:16px;text-align:center"><div class="n" style="color:#fff;font-size:24px;font-weight:700">128</div><div class="l" style="color:#4a7ba6;font-size:9.5px;letter-spacing:2px;margin-top:5px">NOTES</div></div>
+    <div class="num" style="background:rgba(10,18,32,.85);border:1px solid rgba(127,212,255,.14);border-radius:12px;padding:16px;text-align:center"><div class="n" style="color:#fff;font-size:24px;font-weight:700">8</div><div class="l" style="color:#4a7ba6;font-size:9.5px;letter-spacing:2px;margin-top:5px">FOLDERS</div></div>
+    <div class="num" style="background:rgba(10,18,32,.85);border:1px solid rgba(127,212,255,.14);border-radius:12px;padding:16px;text-align:center"><div class="n" style="color:#fff;font-size:24px;font-weight:700">996</div><div class="l" style="color:#4a7ba6;font-size:9.5px;letter-spacing:2px;margin-top:5px">BI-DIR LINKS</div></div>
+    <div class="num" style="background:rgba(10,18,32,.85);border:1px solid rgba(127,212,255,.14);border-radius:12px;padding:16px;text-align:center"><div class="n" style="color:#fff;font-size:24px;font-weight:700">8</div><div class="l" style="color:#4a7ba6;font-size:9.5px;letter-spacing:2px;margin-top:5px">CLUSTERS</div></div></div>
+    <div class="ksec">KNOWLEDGE DOMAINS</div>
+    <div class="dom" style="margin-bottom:8px"><div class="dr" style="display:flex;justify-content:space-between;font-size:12px;color:#8ba3c7;margin-bottom:5px"><span>Automation</span><span>15</span></div><div class="bar" style="height:5px;background:rgba(127,212,255,.1);border-radius:3px;overflow:hidden"><div class="f" style="height:100%;width:75%;background:linear-gradient(90deg,#2a7fff,#7fd4ff);border-radius:3px"></div></div></div>
+    <div class="dom" style="margin-bottom:8px"><div class="dr" style="display:flex;justify-content:space-between;font-size:12px;color:#8ba3c7;margin-bottom:5px"><span>Finance</span><span>15</span></div><div class="bar" style="height:5px;background:rgba(127,212,255,.1);border-radius:3px;overflow:hidden"><div class="f" style="height:100%;width:75%;background:linear-gradient(90deg,#2a7fff,#7fd4ff);border-radius:3px"></div></div></div>`}
+  };
+  function openSec(key){const s=SECTIONS[key];if(!s)return;
+    secBody.innerHTML=`<div class="ksec">${s.s}</div><h2>${s.t}<span class="cur"></span></h2>`+s.h;
+    secPanel.classList.add('open');}
+  function closeSec(){secPanel.classList.remove('open');}
+  document.getElementById('sec-back').addEventListener('click',closeSec);
+  document.getElementById('sec-x').addEventListener('click',closeSec);
+
   /* ---------- sidebar nav ---------- */
-  const kcp=document.getElementById('kc-panel');
   document.querySelectorAll('#sidebar .ni').forEach(n=>{
     n.addEventListener('click',()=>{
       document.querySelectorAll('#sidebar .ni').forEach(x=>x.classList.remove('on'));
       n.classList.add('on');
-      if(n.dataset.nav==='engine'){kcp.classList.add('open');}
-      else{kcp.classList.remove('open');}
+      const k=n.dataset.nav;
+      if(SECTIONS[k]){openSec(k);}else{closeSec();}
     });
   });
-  document.getElementById('kc-back').addEventListener('click',()=>{kcp.classList.remove('open');});
-  document.getElementById('kc-x').addEventListener('click',()=>{kcp.classList.remove('open');});
 })();
 </script>
 </body>
