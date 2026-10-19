@@ -16,6 +16,9 @@
   #brain-canvas {
     position:fixed; inset:0; width:100%; height:100%; display:block;
   }
+  @media (min-width:760px) {
+    #brain-canvas { left:200px; right:340px; width:auto; }
+  }
   #ui {
     position:fixed; inset:0; pointer-events:none;
     display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
@@ -195,7 +198,9 @@
   let W=0, H=0, CX=0, CY=0, R=0, DPR=1;
   function resize(){
     DPR = Math.min(window.devicePixelRatio||1, 2);
-    W = window.innerWidth; H = window.innerHeight;
+    const wide = window.innerWidth >= 760;
+    const lPad = wide ? 200 : 0, rPad = wide ? 340 : 0;
+    W = window.innerWidth - lPad - rPad; H = window.innerHeight;
     CX = W/2; CY = H/2 - 20;
     R = Math.min(W,H)*0.36;
     canvas.width = W*DPR; canvas.height = H*DPR;
