@@ -151,9 +151,22 @@
   #sec-panel .kclose:hover { color:#fff; }
   /* keep old kc-panel styles for reference */
   #kc-panel { display:none !important; }
-  @media (max-width:759px) {
-    #sec-panel { left:0; right:0; }
+  /* ---- agent popup on brain tap ---- */
+  #agent-pop {
+    position:fixed; z-index:40; display:none;
+    background:rgba(8,15,28,.96); border:1px solid rgba(127,212,255,.35);
+    border-radius:14px; padding:14px 18px; min-width:190px; max-width:250px;
+    box-shadow:0 0 30px rgba(80,180,255,.3); backdrop-filter:blur(8px);
+    pointer-events:auto;
   }
+  #agent-pop.show { display:block; animation:popin .25s ease-out; }
+  @keyframes popin { from { transform:scale(.85); opacity:0; } to { transform:scale(1); opacity:1; } }
+  #agent-pop .ai { font-size:28px; margin-bottom:6px; }
+  #agent-pop .an { color:#fff; font-size:14px; font-weight:600; margin-bottom:4px; }
+  #agent-pop .ad { color:#8ba3c7; font-size:11.5px; line-height:1.6; margin-bottom:8px; }
+  #agent-pop .as { display:inline-block; font-size:10px; letter-spacing:1.5px; color:#4ade80; border:1px solid rgba(74,222,128,.4); padding:3px 10px; border-radius:10px; }
+  #agent-pop .ax { position:absolute; top:6px; right:10px; color:#4a7ba6; cursor:pointer; font-size:14px; }
+  #agent-pop .ax:hover { color:#fff; }
   /* funnel */
   .funnel-stages { position:relative; display:flex; align-items:flex-start; justify-content:space-between; padding:30px 10px 20px; margin-bottom:16px; }
   .fstage { text-align:center; z-index:2; }
@@ -294,6 +307,13 @@
 <div id="sec-panel">
   <div class="back"><span id="sec-back">◀ BACK</span><span class="kclose" id="sec-x">✕</span></div>
   <div id="sec-body"></div>
+</div>
+<div id="agent-pop">
+  <span class="ax" id="agent-x">✕</span>
+  <div class="ai" id="agent-icon">📧</div>
+  <div class="an" id="agent-name">Gmail Agent</div>
+  <div class="ad" id="agent-desc">Reads, drafts & sends emails</div>
+  <span class="as" id="agent-status">● LIVE</span>
 </div>
 <div id="kc-panel" style="display:none">
   <div class="back"><span id="kc-back">◀ BACK · DIRECTORY</span><span class="kclose" id="kc-x">✕</span></div>
@@ -588,12 +608,15 @@
       const glow = (0.5+E*1.6)*tw;
       const pr = p.r*p.ss*(0.55+0.75*depthF)*(1+E*0.5);
       if(p.icon){
-        // service icon particle — draw emoji
-        const fs = Math.max(10, pr*5*(0.6+0.4*depthF));
+        // service icon particle — draw emoji (dark & visible)
+        const fs = Math.max(12, pr*5.5*(0.65+0.35*depthF));
         ctx.font = `${fs}px serif`;
         ctx.textAlign='center'; ctx.textBaseline='middle';
-        ctx.globalAlpha = 0.35+0.65*depthF;
-        ctx.shadowColor='rgba(127,212,255,.8)'; ctx.shadowBlur=10;
+        ctx.globalAlpha = 0.65+0.35*depthF;
+        ctx.shadowColor='rgba(127,212,255,.9)'; ctx.shadowBlur=12;
+        // dark circle backdrop for visibility
+        ctx.fillStyle='rgba(4,10,22,.75)';
+        ctx.beginPath(); ctx.arc(p.sx,p.sy,fs*0.72,0,7); ctx.fill();
         ctx.fillText(p.icon, p.sx, p.sy);
         ctx.globalAlpha=1; ctx.shadowBlur=0;
       } else {
@@ -604,6 +627,30 @@
       }
     }
     ctx.shadowBlur=0;
+
+    // animated line to selected agent icon
+    if(selIcon){
+      lineAnim=Math.min(1,lineAnim+0.04);
+      const ex=selIcon.sx, ey=selIcon.sy;
+      const lx=CX+(ex-CX)*lineAnim, ly=CY+(ey-CY)*lineAnim;
+      const lg=ctx.createLinearGradient(CX,CY,ex,ey);
+      lg.addColorStop(0,'rgba(127,212,255,0)');
+      lg.addColorStop(1,'rgba(127,212,255,.9)');
+      ctx.strokeStyle=lg; ctx.lineWidth=2.5;
+      ctx.shadowColor='#7fd4ff'; ctx.shadowBlur=12;
+      ctx.beginPath(); ctx.moveTo(CX,CY); ctx.lineTo(lx,ly); ctx.stroke();
+      ctx.shadowBlur=0;
+      // pulse dot traveling along the line
+      if(lineAnim>=1){
+        const pp=(t*1.2)%1, dx2=ex-CX, dy2=ey-CY;
+        ctx.fillStyle='#7fd4ff'; ctx.shadowColor='#7fd4ff'; ctx.shadowBlur=14;
+        ctx.beginPath(); ctx.arc(CX+dx2*pp, CY+dy2*pp, 3.5, 0, 7); ctx.fill();
+        ctx.shadowBlur=0;
+      }
+      // highlight ring on selected icon
+      ctx.strokeStyle='rgba(127,212,255,.9)'; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.arc(ex,ey,20+Math.sin(t*5)*3,0,7); ctx.stroke();
+    }
 
     // speaking ripple rings
     if(speaking){
@@ -738,6 +785,57 @@
       if(SECTIONS[k]){openSec(k);}else{closeSec();}
     });
   });
+  /* ---------- agent tap popup + animated line ---------- */
+  const AGENT_INFO={
+    '📧':['Gmail Agent','Reads, drafts & sends emails on your approval','LIVE'],
+    '💬':['WhatsApp Agent','Direct line to clients & groups','LIVE'],
+    '📘':['Facebook Agent','Manages luxury life page + posts','LIVE'],
+    '📸':['Instagram Agent','Posts reels & stories daily','LIVE'],
+    '🌤️':['Weather Agent','Dubai weather updates & alerts','LIVE'],
+    '📺':['YouTube Agent','Channel analytics & ideas','LIVE'],
+    '📰':['News Agent','Latest headlines that matter','LIVE'],
+    '🎵':['Spotify Agent','Music & focus playlists','IDLE'],
+    '📅':['Calendar Agent','Reminders & scheduling','LIVE'],
+    '🗺️':['Maps Agent','Places, routes & nearby','IDLE'],
+    '💾':['Drive Agent','Files & documents hub','LIVE'],
+    '🐦':['X Agent','Trends & quick posts','IDLE'],
+    '💼':['LinkedIn Agent','Professional network','IDLE'],
+    '🎭':['TikTok Agent','Short video ideas','IDLE'],
+    '🔍':['Search Agent','Web answers instantly','LIVE'],
+    '⏰':['Reminder Agent','Never miss a thing','LIVE'],
+    '📞':['Calls Agent','Call history & dial','IDLE'],
+    '💳':['Payments Agent','Track spending & Tabby','LIVE'],
+    '🏦':['Bank Agent','Balance & transfers','IDLE'],
+    '🛒':['Shopping Agent','Best deals finder','IDLE'],
+    '📊':['Analytics Agent','Page stats & growth','LIVE'],
+    '🎮':['Games Agent','Fun breaks & puzzles','IDLE']
+  };
+  const agentPop=document.getElementById('agent-pop');
+  let selIcon=null, lineAnim=0;
+  canvas.addEventListener('click',e=>{
+    const rect=canvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    let best=null,bd=1e9;
+    for(const p of pts){ if(!p.icon)continue;
+      const d=Math.hypot(p.sx-mx,p.sy-my);
+      if(d<26 && d<bd){bd=d;best=p;} }
+    if(best){
+      selIcon=best; lineAnim=0;
+      const info=AGENT_INFO[best.icon]||[best.icon+' Agent','Smart assistant module','LIVE'];
+      document.getElementById('agent-icon').textContent=best.icon;
+      document.getElementById('agent-name').textContent=info[0];
+      document.getElementById('agent-desc').textContent=info[1];
+      const st=document.getElementById('agent-status');
+      st.textContent='● '+info[2];
+      st.style.color=info[2]==='LIVE'?'#4ade80':'#4a7ba6';
+      // position popup near the icon, clamped to viewport
+      const px=Math.min(Math.max(best.sx+rect.left+18,10),window.innerWidth-260);
+      const py=Math.min(Math.max(best.sy+rect.top-40,10),window.innerHeight-170);
+      agentPop.style.left=px+'px'; agentPop.style.top=py+'px';
+      agentPop.classList.add('show');
+    } else { agentPop.classList.remove('show'); selIcon=null; }
+  });
+  document.getElementById('agent-x').addEventListener('click',()=>{agentPop.classList.remove('show');selIcon=null;});
 })();
 </script>
 </body>
