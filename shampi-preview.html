@@ -313,7 +313,7 @@
       rotX=Math.max(-1.2,Math.min(1.2,rotX));
       rotVY*=0.94; rotVX*=0.94;
       // gentle idle auto-spin
-      rotY+=0.0012;
+      rotY+=0.008; rotX+=Math.sin(t*.7)*0.0015;
     }
 
     const linkDist = R*LINK_DIST_RATIO*(1+E*0.35);
@@ -321,9 +321,9 @@
 
     // move particles in 3D — organic drift + voice agitation
     for(const p of pts){
-      p.x += (p.vx + Math.cos(t*0.9+p.ph)*0.3*(1+E*2.4))*spd;
-      p.y += (p.vy + Math.sin(t*1.1+p.ph)*0.3*(1+E*2.4))*spd;
-      p.z += (p.vz + Math.cos(t*0.7+p.ph*1.7)*0.3*(1+E*2.4))*spd;
+      p.x += (p.vx + Math.cos(t*0.9+p.ph)*0.8*(1+E*2.4))*spd;
+      p.y += (p.vy + Math.sin(t*1.1+p.ph)*0.8*(1+E*2.4))*spd;
+      p.z += (p.vz + Math.cos(t*0.7+p.ph*1.7)*0.8*(1+E*2.4))*spd;
       // soft pull back toward home
       p.x += (p.bx-p.x)*0.008*(1+E);
       p.y += (p.by-p.y)*0.008*(1+E);
