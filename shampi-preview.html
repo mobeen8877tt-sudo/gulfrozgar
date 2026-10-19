@@ -94,6 +94,38 @@
   @media (min-width:760px) {
     #ui { right:340px; }
   }
+  /* ---- left sidebar ---- */
+  #sidebar {
+    position:fixed; top:0; left:0; bottom:0; width:200px; z-index:20;
+    background:rgba(7,12,22,.96); border-right:1px solid rgba(127,212,255,.14);
+    display:flex; flex-direction:column; padding:14px 10px; overflow-y:auto;
+    font-family:inherit;
+  }
+  #sidebar::-webkit-scrollbar { width:4px; }
+  #sidebar::-webkit-scrollbar-thumb { background:rgba(127,212,255,.2); border-radius:2px; }
+  #sidebar .logo { display:flex; align-items:center; gap:9px; padding:4px 8px 14px; }
+  #sidebar .logo .lg { font-size:19px; }
+  #sidebar .logo .lt { color:#eaf3ff; font-size:12px; letter-spacing:3px; font-weight:700; }
+  #sidebar .logo .lv { color:#4a7ba6; font-size:9px; letter-spacing:1.5px; margin-top:2px; }
+  #sidebar .sec { color:#3d5a7a; font-size:9px; letter-spacing:2.5px; padding:12px 10px 6px; }
+  #sidebar .ni {
+    display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:9px;
+    color:#8ba3c7; font-size:12.5px; cursor:pointer; border:1px solid transparent;
+    transition:all .15s;
+  }
+  #sidebar .ni:hover { background:rgba(127,212,255,.07); color:#d5e9ff; }
+  #sidebar .ni.on { background:rgba(127,212,255,.12); border-color:rgba(127,212,255,.25); color:#fff; }
+  #sidebar .ni .ic { width:20px; text-align:center; font-size:14px; }
+  #sidebar .foot { margin-top:auto; padding:12px 10px 4px; border-top:1px solid rgba(127,212,255,.1); }
+  #sidebar .foot .st { display:flex; align-items:center; gap:7px; color:#4ade80; font-size:10.5px; }
+  #sidebar .foot .st .d { width:7px; height:7px; border-radius:50%; background:#4ade80; box-shadow:0 0 8px #4ade80; }
+  #sidebar .foot .sv { color:#3d5a7a; font-size:9.5px; margin-top:5px; letter-spacing:.5px; }
+  @media (min-width:760px) {
+    #ui { left:200px; }
+  }
+  @media (max-width:759px) {
+    #sidebar { display:none; }
+  }
   #voice-switch {
     pointer-events:auto; display:flex; gap:8px; margin-top:10px; align-items:center;
   }
@@ -111,6 +143,29 @@
 </head>
 <body>
 <canvas id="brain-canvas"></canvas>
+<nav id="sidebar">
+  <div class="logo"><span class="lg">🔵</span><div><div class="lt">SHAMPI OS</div><div class="lv">V1 · OPERATOR MODE</div></div></div>
+  <div class="sec">OPERATE</div>
+  <div class="ni" data-nav="home"><span class="ic">🏠</span>Home</div>
+  <div class="ni" data-nav="comms"><span class="ic">💬</span>Comms</div>
+  <div class="ni" data-nav="funnel"><span class="ic">🔻</span>Funnel</div>
+  <div class="ni" data-nav="workflows"><span class="ic">⚙️</span>Workflows</div>
+  <div class="ni" data-nav="social"><span class="ic">📣</span>Social</div>
+  <div class="ni" data-nav="content"><span class="ic">📝</span>Content</div>
+  <div class="ni" data-nav="finances"><span class="ic">💰</span>Finances</div>
+  <div class="sec">AGENTS</div>
+  <div class="ni" data-nav="agents"><span class="ic">🤖</span>Agents</div>
+  <div class="ni" data-nav="tasks"><span class="ic">☰</span>Tasks</div>
+  <div class="ni" data-nav="skills"><span class="ic">✦</span>Skills</div>
+  <div class="ni" data-nav="orgchart"><span class="ic">◭</span>Org Chart</div>
+  <div class="sec">INTELLIGENCE</div>
+  <div class="ni on" data-nav="engine"><span class="ic">🧠</span>Shampi Engine</div>
+  <div class="ni" data-nav="doctor"><span class="ic">➕</span>Doctor</div>
+  <div class="sec">SYSTEM</div>
+  <div class="ni" data-nav="connections"><span class="ic">🔗</span>Connections</div>
+  <div class="ni" data-nav="roadmap"><span class="ic">🗺️</span>Roadmap</div>
+  <div class="foot"><div class="st"><span class="d"></span>21/21 systems live</div><div class="sv">localhost · sqlite · real agents</div></div>
+</nav>
 <div id="ui">
   <div id="status">Tap mic — Shampi sun rahi hai</div>
   <button id="mic-btn" aria-label="mic">🎙</button>
@@ -420,6 +475,14 @@
   chatsend.addEventListener('click',sendChat);
   chatin.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
   addMsg('a','Salam jani! Main Shampi hun — tumhara AI assistant. Kya baat karni hai? 😊');
+
+  /* ---------- sidebar nav ---------- */
+  document.querySelectorAll('#sidebar .ni').forEach(n=>{
+    n.addEventListener('click',()=>{
+      document.querySelectorAll('#sidebar .ni').forEach(x=>x.classList.remove('on'));
+      n.classList.add('on');
+    });
+  });
 })();
 </script>
 </body>
