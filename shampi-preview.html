@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SHAMPI — AI Brain</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    width:100%; height:100%; overflow:hidden;
+    background:#040a16;
+    font-family:'Segoe UI', system-ui, sans-serif;
+    -webkit-user-select:none; user-select:none;
+    touch-action:none;
+  }
+  #brain-canvas {
+    position:fixed; inset:0; width:100%; height:100%; display:block;
+  }
+  #ui {
+    position:fixed; inset:0; pointer-events:none;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    padding-bottom:34px; z-index:10;
+  }
+  #status {
+    color:#7fd4ff; font-size:13px; letter-spacing:3px; text-transform:uppercase;
+    opacity:.75; text-shadow:0 0 12px rgba(127,212,255,.8);
+    margin-bottom:14px; transition:opacity .4s;
+  }
+  #mic-btn {
+    pointer-events:auto; cursor:pointer;
+    width:74px; height:74px; border-radius:50%;
+    border:2px solid rgba(127,212,255,.55);
+    background:radial-gradient(circle at 35% 30%, rgba(64,160,255,.35), rgba(8,20,40,.9));
+    color:#bfe9ff; font-size:28px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 24px rgba(80,180,255,.35), inset 0 0 18px rgba(80,180,255,.25);
+    transition:transform .15s, box-shadow .3s;
+  }
+  #mic-btn:active { transform:scale(.93); }
+  #mic-btn.listening {
+    box-shadow:0 0 44px rgba(120,220,255,.75), inset 0 0 26px rgba(120,220,255,.45);
+    animation:micpulse 1.1s ease-in-out infinite;
+  }
+  @keyframes micpulse {
+    0%,100% { box-shadow:0 0 30px rgba(120,220,255,.5), inset 0 0 20px rgba(120,220,255,.3); }
+    50%     { box-shadow:0 0 60px rgba(140,230,255,.9), inset 0 0 30px rgba(140,230,255,.55); }
+  }
+  #hint {
+    color:#4a7ba6; font-size:11px; letter-spacing:1.5px; margin-top:12px; opacity:.8;
+  }
+  /* ---- right chatbox ---- */
+  #chatbox {
+    position:fixed; top:0; right:0; bottom:0; width:min(340px, 88vw); z-index:20;
+    background:rgba(7,12,22,.96); border-left:1px solid rgba(127,212,255,.18);
+    display:flex; flex-direction:column; backdrop-filter:blur(8px);
+  }
+  #chatbox .chead {
+    padding:14px 16px; border-bottom:1px solid rgba(127,212,255,.14);
+    display:flex; align-items:center; gap:10px;
+  }
+  #chatbox .chead .dot {
+    width:10px; height:10px; border-radius:50%; background:#4ade80;
+    box-shadow:0 0 10px #4ade80; animation:blink 1.6s infinite;
+  }
+  @keyframes blink { 50% { opacity:.4; } }
+  #chatbox .chead .t { color:#dff3ff; font-size:13px; letter-spacing:2px; }
+  #chatbox .chead .s { color:#4a7ba6; font-size:10px; margin-left:auto; letter-spacing:1px; }
+  #chatlog {
+    flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px;
+  }
+  #chatlog::-webkit-scrollbar { width:4px; }
+  #chatlog::-webkit-scrollbar-thumb { background:rgba(127,212,255,.25); border-radius:2px; }
+  .msg {
+    font-size:13px; line-height:1.65; padding:10px 13px; border-radius:12px;
+    max-width:88%; word-wrap:break-word; color:#dbe7f5;
+  }
+  .msg.u { align-self:flex-end; background:linear-gradient(135deg,#1c3a5e,#254a75); border-bottom-right-radius:4px; }
+  .msg.a { align-self:flex-start; background:rgba(20,32,52,.9); border:1px solid rgba(127,212,255,.15); border-bottom-left-radius:4px; }
+  .msg .tm { display:block; font-size:9px; color:#4a7ba6; margin-top:5px; letter-spacing:1px; }
+  #chatrow { display:flex; border-top:1px solid rgba(127,212,255,.14); padding:10px; gap:8px; }
+  #chatin {
+    flex:1; background:rgba(15,25,42,.9); border:1px solid rgba(127,212,255,.2);
+    border-radius:20px; outline:none; color:#eaf3ff; font-size:13px; padding:10px 15px;
+    font-family:inherit;
+  }
+  #chatin::placeholder { color:#3d4d6b; }
+  #chatsend {
+    width:42px; height:42px; border-radius:50%; border:none; cursor:pointer; font-size:17px;
+    background:linear-gradient(135deg,#2a7fff,#4da6ff); color:#fff;
+    box-shadow:0 0 14px rgba(80,180,255,.4); flex-shrink:0;
+  }
+  #chatsend:active { transform:scale(.92); }
+  /* shift brain left on wide screens so chatbox doesn't cover it */
+  @media (min-width:760px) {
+    #ui { right:340px; }
+  }
+  #voice-switch {
+    pointer-events:auto; display:flex; gap:8px; margin-top:10px; align-items:center;
+  }
+  #voice-switch span { color:#4a7ba6; font-size:10px; letter-spacing:2px; }
+  .vbtn {
+    cursor:pointer; border:1px solid rgba(127,212,255,.4); border-radius:20px;
+    background:rgba(10,25,45,.7); color:#7fd4ff; font-size:11px; letter-spacing:1px;
+    padding:6px 14px; transition:all .25s;
+  }
+  .vbtn.active {
+    background:rgba(80,180,255,.25); color:#dff3ff;
+    box-shadow:0 0 14px rgba(80,180,255,.5); border-color:rgba(127,212,255,.9);
+  }
+</style>
+</head>
+<body>
+<canvas id="brain-canvas"></canvas>
+<div id="ui">
+  <div id="status">Tap mic — Shampi sun rahi hai</div>
+  <button id="mic-btn" aria-label="mic">🎙</button>
+  <div id="voice-switch">
+    <span>VOICE</span>
+    <button class="vbtn active" data-v="1">1</button>
+    <button class="vbtn" data-v="2">2</button>
+  </div>
+  <div id="hint">BOLO — BRAIN REACT KAREGA</div>
+</div>
+<aside id="chatbox">
+  <div class="chead"><span class="dot"></span><span class="t">SHAMPI</span><span class="s">LIVE</span></div>
+  <div id="chatlog"></div>
+  <div id="chatrow">
+    <input id="chatin" placeholder="Shampi se kaho…" autocomplete="off">
+    <button id="chatsend">➤</button>
+  </div>
+</aside>
+<script>
+(() => {
+  const canvas = document.getElementById('brain-canvas');
+  const ctx = canvas.getContext('2d');
+  const statusEl = document.getElementById('status');
+  const micBtn = document.getElementById('mic-btn');
+  const hintEl = document.getElementById('hint');
+
+  let W=0, H=0, CX=0, CY=0, R=0, DPR=1;
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio||1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    CX = W/2; CY = H/2 - 20;
+    R = Math.min(W,H)*0.36;
+    canvas.width = W*DPR; canvas.height = H*DPR;
+    canvas.style.width = W+'px'; canvas.style.height = H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    buildStars();
+  }
+  window.addEventListener('resize', resize);
+
+  // ---------- background stars ----------
+  let stars=[];
+  function buildStars(){
+    stars=[];
+    const n = Math.floor(W*H/9000);
+    for(let i=0;i<n;i++){
+      stars.push({x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.4+0.3, tw:Math.random()*Math.PI*2,
+        sp:0.4+Math.random()*1.2});
+    }
+  }
+
+  // ---------- brain particles (3D ball) ----------
+  const P_COUNT = 920;
+  const FOV = 900; // perspective depth
+  let pts=[];
+  function seedBrain(){
+    pts=[];
+    for(let i=0;i<P_COUNT;i++){
+      // 3D ellipsoid: wider (x), flatter (y), medium depth (z)
+      const th = Math.random()*Math.PI*2;
+      const ph = Math.acos(2*Math.random()-1);
+      const rr = Math.pow(Math.random(),0.45)*R;
+      const ex=1.15, ey=0.75, ez=0.85;
+      const bx = Math.sin(ph)*Math.cos(th)*rr*ex;
+      const by = Math.sin(ph)*Math.sin(th)*rr*ey;
+      const bz = Math.cos(ph)*rr*ez;
+      pts.push({
+        _id:i, bx, by, bz, x:bx, y:by, z:bz,
+        vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5, vz:(Math.random()-0.5)*0.5,
+        r:1+Math.random()*2.0,
+        ph:Math.random()*Math.PI*2,
+        hue:195+Math.random()*25,
+        sx:0, sy:0, sd:0, ss:1 // projected: screen x/y, depth, scale
+      });
+    }
+  }
+
+  // project 3D -> 2D with current rotation
+  let rotX=0.35, rotY=0, cosX=1, sinX=0, cosY=1, sinY=1;
+  function projectAll(){
+    cosX=Math.cos(rotX); sinX=Math.sin(rotX);
+    cosY=Math.cos(rotY); sinY=Math.sin(rotY);
+    for(const p of pts){
+      // rotate Y then X
+      const x1 = p.x*cosY + p.z*sinY;
+      const z1 = -p.x*sinY + p.z*cosY;
+      const y2 = p.y*cosX - z1*sinX;
+      const z2 = p.y*sinX + z1*cosX;
+      const s = FOV/(FOV+z2);
+      p.sx = CX + x1*s;
+      p.sy = CY + y2*s;
+      p.sd = z2;       // depth: +front, -back
+      p.ss = s;        // perspective scale
+    }
+  }
+
+  // ---------- voice reactivity ----------
+  let audioCtx=null, analyser=null, micStream=null, listening=false;
+  let voiceLevel=0, voiceSmooth=0, speaking=false, speakTimer=0;
+  const FREQ=new Uint8Array(256);
+
+  async function toggleMic(){
+    if(listening){ stopMic(); return; }
+    try{
+      micStream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+      const src = audioCtx.createMediaStreamSource(micStream);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 512;
+      src.connect(analyser);
+      listening=true;
+      micBtn.classList.add('listening');
+      statusEl.textContent='Sun rahi hun… bolo jani';
+      hintEl.textContent='BRAIN REACT KAR RAHA HAI';
+    }catch(e){
+      statusEl.textContent='Mic ki permission do — phir try karo';
+    }
+  }
+  function stopMic(){
+    listening=false;
+    micBtn.classList.remove('listening');
+    statusEl.textContent='Tap mic — Shampi sun rahi hai';
+    hintEl.textContent='BOLO — BRAIN REACT KAREGA';
+    if(micStream){ micStream.getTracks().forEach(t=>t.stop()); micStream=null; }
+    if(audioCtx){ audioCtx.close(); audioCtx=null; }
+    analyser=null;
+  }
+  micBtn.addEventListener('click', toggleMic);
+
+  // ---------- voice switcher (2 voices) ----------
+  let activeVoice = 1;
+  // window.shampiVoice is read by the backend bridge when speaking
+  window.shampiVoice = 1;
+  document.querySelectorAll('.vbtn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.vbtn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      activeVoice = parseInt(btn.dataset.v,10);
+      window.shampiVoice = activeVoice;
+      statusEl.textContent = 'Voice '+activeVoice+' select ho gayi';
+      setTimeout(()=>{ if(!listening) statusEl.textContent='Tap mic — Shampi sun rahi hai'; }, 1500);
+    });
+  });
+
+  // ---------- hand: drag to spin the 3D ball any direction ----------
+  let rotVX=0, rotVY=0, lastPX=0, lastPY=0, pDown=false;
+  const ROT_SPD = 0.006;
+  window.addEventListener('pointerdown', e=>{ pDown=true; lastPX=e.clientX; lastPY=e.clientY; rotVX=0; rotVY=0; }, {passive:true});
+  window.addEventListener('pointermove', e=>{
+    if(!pDown) return;
+    const dx=e.clientX-lastPX, dy=e.clientY-lastPY;
+    rotY += dx*ROT_SPD; rotX += dy*ROT_SPD;
+    // clamp X so the ball doesn't flip inside-out
+    rotX = Math.max(-1.2, Math.min(1.2, rotX));
+    rotVY = dx*ROT_SPD; rotVX = dy*ROT_SPD;
+    lastPX=e.clientX; lastPY=e.clientY;
+  }, {passive:true});
+  const endDrag=()=>{ pDown=false; };
+  window.addEventListener('pointerup', endDrag, {passive:true});
+  window.addEventListener('pointercancel', endDrag, {passive:true});
+
+  function sampleVoice(){
+    if(!analyser||!listening){ voiceLevel=0; return; }
+    analyser.getByteFrequencyData(FREQ);
+    let sum=0;
+    for(let i=2;i<90;i++) sum+=FREQ[i];
+    voiceLevel = sum/(88*255); // 0..1
+  }
+
+  // ---------- render ----------
+  const LINK_DIST_RATIO = 0.16; // of R
+  let t=0;
+
+  function frame(){
+    t+=0.016;
+    sampleVoice();
+    // smooth + latch "speaking" so the brain keeps dancing briefly after words
+    voiceSmooth += (voiceLevel - voiceSmooth)*0.25;
+    if(voiceSmooth>0.08){ speaking=true; speakTimer=0; }
+    else { speakTimer+=0.016; if(speakTimer>0.9) speaking=false; }
+    const E = speaking ? Math.min(1, voiceSmooth*3.2) : 0; // energy 0..1
+
+    // bg
+    const g=ctx.createRadialGradient(CX,CY,0,CX,CY,Math.max(W,H)*0.7);
+    g.addColorStop(0,'#071426'); g.addColorStop(0.55,'#050d1c'); g.addColorStop(1,'#03070f');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+    // stars
+    for(const s of stars){
+      const a=0.25+0.55*Math.abs(Math.sin(t*s.sp+s.tw));
+      ctx.globalAlpha=a*(0.5+E*0.5);
+      ctx.fillStyle='#9fd8ff';
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,7); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+
+    // rotation inertia when released
+    if(!pDown){
+      rotY+=rotVY; rotX+=rotVX;
+      rotX=Math.max(-1.2,Math.min(1.2,rotX));
+      rotVY*=0.94; rotVX*=0.94;
+      // gentle idle auto-spin
+      rotY+=0.0012;
+    }
+
+    const linkDist = R*LINK_DIST_RATIO*(1+E*0.35);
+    const spd = 1+E*3.2;
+
+    // move particles in 3D — organic drift + voice agitation
+    for(const p of pts){
+      p.x += (p.vx + Math.cos(t*0.9+p.ph)*0.3*(1+E*2.4))*spd;
+      p.y += (p.vy + Math.sin(t*1.1+p.ph)*0.3*(1+E*2.4))*spd;
+      p.z += (p.vz + Math.cos(t*0.7+p.ph*1.7)*0.3*(1+E*2.4))*spd;
+      // soft pull back toward home
+      p.x += (p.bx-p.x)*0.008*(1+E);
+      p.y += (p.by-p.y)*0.008*(1+E);
+      p.z += (p.bz-p.z)*0.008*(1+E);
+      // keep inside ellipsoid
+      const ex=(p.x)/(R*1.2), ey=(p.y)/(R*0.8), ez=(p.z)/(R*0.9);
+      const dd=ex*ex+ey*ey+ez*ez;
+      if(dd>1){ const s=1/Math.sqrt(dd); p.x*=s; p.y*=s; p.z*=s; p.vx*=-0.9; p.vy*=-0.9; p.vz*=-0.9; }
+    }
+    projectAll();
+
+    // links — spatial grid on projected 2D, depth-faded
+    ctx.lineWidth=1;
+    const cell=linkDist, grid=new Map();
+    const gk=(x,y)=>((x/cell)|0)+':'+((y/cell)|0);
+    for(const p of pts){
+      const k=gk(p.sx,p.sy);
+      if(!grid.has(k)) grid.set(k,[]);
+      grid.get(k).push(p);
+    }
+    const ld2=linkDist*linkDist;
+    const seen=new Set();
+    for(const p of pts){
+      const cx0=((p.sx/cell)|0), cy0=((p.sy/cell)|0);
+      for(let gx=cx0-1;gx<=cx0+1;gx++) for(let gy=cy0-1;gy<=cy0+1;gy++){
+        const arr=grid.get(gx+':'+gy); if(!arr) continue;
+        for(const q of arr){
+          if(q===p) continue;
+          const id=p._id<q._id?p._id+'_'+q._id:q._id+'_'+p._id;
+          if(seen.has(id)) continue; seen.add(id);
+          const dx=p.sx-q.sx, dy=p.sy-q.sy, d2=dx*dx+dy*dy;
+          if(d2<ld2){
+            const d=Math.sqrt(d2);
+            const depthF=((p.sd+q.sd)*0.5/(R*0.9)*0.5+0.5); // 0 back .. 1 front
+            const al=(1-d/linkDist)*(0.28+E*0.55)*(0.25+0.75*depthF);
+            ctx.strokeStyle=`hsla(${195+E*10},95%,${62+E*18}%,${al})`;
+            ctx.beginPath(); ctx.moveTo(p.sx,p.sy); ctx.lineTo(q.sx,q.sy); ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // core glow — breathes idle, flares on voice
+    const breathe = 0.5+0.5*Math.sin(t*1.6);
+    const coreR = R*(0.55+breathe*0.1+E*0.45);
+    const cg=ctx.createRadialGradient(CX,CY,0,CX,CY,coreR*1.6);
+    const ci = 0.10+breathe*0.05+E*0.30;
+    cg.addColorStop(0,`rgba(140,220,255,${ci})`);
+    cg.addColorStop(0.5,`rgba(70,150,255,${ci*0.45})`);
+    cg.addColorStop(1,'rgba(40,100,255,0)');
+    ctx.fillStyle=cg;
+    ctx.beginPath(); ctx.arc(CX,CY,coreR*1.6,0,7); ctx.fill();
+
+    // particles — depth-cued: front = big/bright, back = small/dim
+    // draw back-to-front so front particles overlap correctly
+    const sorted=[...pts].sort((a,b)=>a.sd-b.sd);
+    for(const p of sorted){
+      const depthF=(p.sd/(R*0.9)*0.5+0.5); // 0 back .. 1 front
+      const tw = 0.6+0.4*Math.sin(t*3+p.ph*3);
+      const glow = (0.5+E*1.6)*tw;
+      const pr = p.r*p.ss*(0.55+0.75*depthF)*(1+E*0.5);
+      ctx.fillStyle=`hsla(${p.hue},100%,${70+E*20}%,${(0.25+0.75*depthF)*(0.55+0.45*tw)})`;
+      ctx.shadowColor=`hsla(${p.hue},100%,65%,1)`;
+      ctx.shadowBlur=(4+glow*14)*(0.4+0.6*depthF);
+      ctx.beginPath(); ctx.arc(p.sx,p.sy,Math.max(0.4,pr),0,7); ctx.fill();
+    }
+    ctx.shadowBlur=0;
+
+    // speaking ripple rings
+    if(speaking){
+      const rp=(t*2.2)%1;
+      ctx.strokeStyle=`hsla(200,100%,72%,${(1-rp)*0.5})`;
+      ctx.lineWidth=2;
+      ctx.beginPath(); ctx.arc(CX,CY,R*(0.4+rp*1.1),0,7); ctx.stroke();
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  resize();
+  seedBrain();
+  frame();
+
+  /* ---------- chatbox ---------- */
+  const chatlog=document.getElementById('chatlog'),
+        chatin=document.getElementById('chatin'),
+        chatsend=document.getElementById('chatsend');
+  function now(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+  function addMsg(who,txt){const d=document.createElement('div');d.className='msg '+who;
+    d.innerHTML=txt.replace(/</g,'&lt;')+'<span class="tm">'+now()+'</span>';
+    chatlog.appendChild(d);chatlog.scrollTop=chatlog.scrollHeight;}
+  function sendChat(){const v=chatin.value.trim();if(!v)return;addMsg('u',v);chatin.value='';
+    setTimeout(()=>addMsg('a','Samajh gaya jani! 👍'),600);}
+  chatsend.addEventListener('click',sendChat);
+  chatin.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
+  addMsg('a','Salam jani! Main Shampi hun — tumhara AI assistant. Kya baat karni hai? 😊');
+})();
+</script>
+</body>
+</html>
