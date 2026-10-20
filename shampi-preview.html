@@ -663,6 +663,7 @@
     requestAnimationFrame(frame);
   }
 
+  let selIcon=null, lineAnim=0;
   resize();
   seedBrain();
   frame();
@@ -811,7 +812,6 @@
     '🎮':['Games Agent','Fun breaks & puzzles','IDLE']
   };
   const agentPop=document.getElementById('agent-pop');
-  let selIcon=null, lineAnim=0;
   canvas.addEventListener('click',e=>{
     const rect=canvas.getBoundingClientRect();
     const mx=e.clientX-rect.left, my=e.clientY-rect.top;
