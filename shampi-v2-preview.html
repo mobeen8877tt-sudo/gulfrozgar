@@ -435,32 +435,7 @@
       <small>V2 · AGENTS OFFICE</small>
     </div>
     <div class="navsec"><h3>OPERATE</h3>
-      <div class="navitem" data-v="home"><span class="ico">⌂</span>Home</div>
-      <div class="navitem" data-v="comms"><span class="ico">✉</span>Comms</div>
-      <div class="navitem" data-v="funnel"><span class="ico">▽</span>Funnel</div>
-      <div class="navitem" data-v="workflows"><span class="ico">⚙</span>Workflows</div>
-      <div class="navitem" data-v="social"><span class="ico">◈</span>Social</div>
-      <div class="navitem" data-v="content"><span class="ico">▤</span>Content</div>
-      <div class="navitem" data-v="finances"><span class="ico">◔</span>Finances</div>
-    </div>
-    <div class="navsec"><h3>AGENTS</h3>
-      <div class="navitem" data-v="agents"><span class="ico">⛉</span>Agents</div>
-      <div class="navitem" data-v="tasks"><span class="ico">☰</span>Tasks</div>
-      <div class="navitem" data-v="skills"><span class="ico">✦</span>Skills</div>
-      <div class="navitem" data-v="orgchart"><span class="ico">⑂</span>Org Chart</div>
-    </div>
-    <div class="navsec"><h3>INTELLIGENCE</h3>
-      <div class="navitem active" data-v="engine"><span class="ico">◎</span>Shampi Engine</div>
-      <div class="navitem" data-v="doctor"><span class="ico">✚</span>Doctor</div>
-    </div>
-    <div class="navsec"><h3>SYSTEM</h3>
-      <div class="navitem" data-v="connections"><span class="ico">⎋</span>Connections</div>
-      <div class="navitem" data-v="roadmap"><span class="ico">▭</span>Roadmap</div>
-      <div class="navitem" data-v="analytics"><span class="ico">◫</span>Analytics</div>
-      <div class="navitem" data-v="refmodel"><span class="ico">▦</span>Reference Model</div>
-    </div>
-    <div class="navsec"><h3>VARIANTS</h3>
-      <div class="navitem" data-v="personas"><span class="ico">◐</span>Personas</div>
+      <div class="navitem active" data-v="home"><span class="ico">⌂</span>Home</div>
     </div>
     <div id="sysstatus"><span class="live">●</span> 21/21 systems live<br>localhost:4100 · sqlite · real agents</div>
   </aside>
@@ -540,81 +515,6 @@
         </div>
         <div id="brainpulse"></div>
 
-        <div class="viewnav hidden" id="techpill"><button id="techprev">‹</button><span class="vname" id="techname">TECH</span><button id="technext">›</button></div>
-      </div>
-
-      <!-- right panel -->
-      <div id="rightpanel">
-        <div style="padding:12px;color:var(--dim);font-size:10px">SHAMPI OS v2</div>
-      </div>
-
-      <!-- TECH drill view -->
-      <div id="techview">
-        <h2 id="techtitle">TECH</h2>
-        <svg id="techsvg"></svg>
-        <div id="technodes"></div>
-        <div class="viewnav" style="bottom:22px"><button id="tvprev">‹</button><span class="vname" id="tvname">TECH</span><button id="tvnext">›</button></div>
-      </div>
-
-      <!-- SOP detail -->
-      <aside id="sop">
-        <div class="phead"><span>◀ BACK · <span id="sopcat" style="color:var(--pur)">TECH</span></span><span class="x" id="sopclose">✕</span></div>
-        <h2 id="soptitle">Audit brain-store markdown health</h2>
-        <div class="cat" id="sopsub">TECH · Knowledge Hygiene</div>
-        <h4>◈ THE HUMAN</h4>
-        <p id="sophuman">You set what 'healthy' means. It enforces the rules and reports the score.</p>
-        <h4>🪜 THE LADDER</h4>
-        <div style="margin-bottom:10px">
-          <div style="font-size:10px;letter-spacing:1.5px;color:var(--dim);margin-bottom:4px">HUMAN-LED</div>
-          <p style="font-size:11px;color:var(--dim);margin-bottom:10px">You notice broken links only when something 404s in front of a client.</p>
-          <div style="font-size:10px;letter-spacing:1.5px;color:var(--dim);margin-bottom:4px">HUMAN-ASSISTED</div>
-          <p style="font-size:11px;color:var(--dim);margin-bottom:10px">It lists the broken links and orphans; you triage.</p>
-          <div style="font-size:10px;letter-spacing:1.5px;color:var(--acc);margin-bottom:4px">◉ FULLY AUTONOMOUS</div>
-          <p style="font-size:11px;color:var(--txt);">It walks every file, scores each folder, and tracks fix-ups to done.</p>
-        </div>
-        <h4>⛉ DONE BY</h4>
-        <div class="doneby">
-          <div class="nm"><span class="pulse"></span><span id="sopagent">Markdown Auditor</span></div>
-          <div class="rl" id="sopagentrole">AI agent · 1:1<br><span id="sopagentrun">runs on builtin · fs walk</span></div>
-        </div>
-        <h4>☰ THE SOP, WRITTEN OUT</h4>
-        <ol id="sopsteps"></ol>
-        <h4>⛓ TOOLS AT THE END OF THE CHAIN (<span id="soptoolsn">1</span>)</h4>
-        <p id="soptools" style="color:var(--acc)">[[ Brain Store ]]</p>
-        <h4>▤ BUILD NOTES</h4>
-        <p id="sopnotes" style="color:var(--dim)">Per-folder scores beat one global number. Track the worst offenders to done, don't just flag them.</p>
-        <button class="takebtn" id="takebtn">✦ TAKE THE SKILL · <span id="sopbtn">Markdown Auditor</span></button>
-      </aside>
-
-      <!-- funnel view -->
-      <div id="funnelview">
-        <h2>FUNNEL</h2>
-        <div class="ftabs">
-          <button class="pillbtn active">ALL CLIENTS</button><button class="pillbtn">MERIDIAN</button>
-          <button class="pillbtn">AGENCY ACCELERANT</button><button class="pillbtn">ATTIO (CRM)</button>
-          <button class="pillbtn">GOHIGHLEVEL</button><button class="pillbtn">TRAKYO</button>
-          <button class="pillbtn">META ADS</button>
-        </div>
-        <div class="funnel-stages" id="fstages">
-          <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">FIRST TOUCH</div><div class="ct">13</div></div>
-          <div class="fline"></div>
-          <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">ENGAGED</div><div class="ct">13 · 100%</div></div>
-          <div class="fline"></div>
-          <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">NURTURED</div><div class="ct">11 · 84.6%</div></div>
-          <div class="fline"></div>
-          <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">OPTED IN</div><div class="ct">10 · 90.9%</div></div>
-          <div class="fline"></div>
-          <div class="fstage"><div class="circ"><div class="in"></div></div><div class="nm">CONVERTED</div><div class="ct">7 · 53.8%</div></div>
-        </div>
-        <div style="font-size:10px;letter-spacing:2px;color:var(--dim);margin-bottom:6px">JOURNEY DATA · 13</div>
-        <table class="ftable">
-          <tr><th>CLIENT</th><th>STAGE</th><th>QUIET</th><th>RELATIONSHIP</th><th>LIKELIHOOD</th><th>ENTRY</th></tr>
-          <tr><td>Grace Lin</td><td style="color:var(--teal)">NURTURED</td><td>2d</td><td>WARM</td><td>74%</td><td>OPTED IN 1d</td></tr>
-          <tr><td>Tayla Nguyen</td><td style="color:var(--teal)">NURTURED</td><td>5d</td><td>WARM</td><td>64%</td><td>OPTED IN 2d</td></tr>
-          <tr><td>Omar Farouk</td><td style="color:var(--acc)">ENGAGED</td><td>1d</td><td>NEW</td><td>52%</td><td>FIRST TOUCH</td></tr>
-          <tr><td>Sara Ahmed</td><td style="color:var(--grn)">CONVERTED</td><td>—</td><td>HOT</td><td>98%</td><td>REFERRAL</td></tr>
-          <tr><td>Ali Raza</td><td style="color:var(--acc)">ENGAGED</td><td>3d</td><td>COOL</td><td>41%</td><td>META ADS</td></tr>
-        </table>
       </div>
 
       <!-- chat -->
@@ -694,38 +594,14 @@ const AGENTS=[['Agency Accelerants','Growth'],['Arcade Creatives','Content'],['A
  ['Client Router','Delivery'],['Client Success','Delivery'],['Comms Agent','Comms'],['Conductor','Ops'],
  ['Data Agent','Tech'],['FanBasis','Growth'],['Gmail Worker','Comms'],['Markdown Auditor','Tech'],
  ['ManyChat MCP','Marketing'],['Notion Sync','Tech'],['Stack Monitor','Tech'],['Vector Auditor','Tech']];
-const TECH={
- tools:[['Gbrain','#f87171'],['Supabase','#f87171'],['Zeroentropy','#f87171'],['Broadcast','#f87171'],
-  ['OpenClaw','#f87171'],['Taux','#f87171'],['Notion','#f87171'],['Ollama','#f87171'],['Remotion','#f87171']],
- agents:[['Data Agent','Answer questions f…'],['Markdown Auditor','Audit brain-store…'],['Vector Auditor','Audit the vector i…'],
-  ['Conductor','Broadcast directive…'],['Notion Sync','Mirror the Notion…'],['Stack Monitor','Watch the local st…']],
- sop:{title:'Audit brain-store markdown health',sub:'TECH · Knowledge Hygiene',
-  human:"You set what 'healthy' means. It enforces the rules and reports the score.",
-  agent:'Markdown Auditor',run:'runs on builtin · fs walk',
-  steps:[['Walk every markdown file in <b>shampi/brain-store</b>',''],
-   ['Flag <b>broken wiki-links</b>, orphan notes and stale frontmatter',''],
-   ['Check generated org docs still match the live agents, SOPs and tools',''],
-   ['Write the <b>health report</b> with per-folder scores',''],
-   ['Queue <b>fix-ups</b> for the worst offenders and track them to done','']],
-  tools:'[[ Brain Store ]]',toolsn:1,
-  notes:"Per-folder scores beat one global number. Track the worst offenders to done, don't just flag them."}};
-
 /* ================= PANELS ================= */
 document.getElementById('dombars').innerHTML=['Automation','Client Delivery','Finance','Growth & Marketing','Operations','Product','Research','Sales Playbooks']
  .map(d=>`<div class="dombar"><div class="t"><span>${d}</span><span>15</span></div><div class="bar"><i style="width:${62+Math.random()*30|0}%"></i></div></div>`).join('');
 document.getElementById('agentlist').innerHTML=AGENTS.map(a=>`<div class="agentrow"><span>${a[0]}</span><span class="cat">${a[1]}</span></div>`).join('');
 
 /* ================= NAV ================= */
-const views={engine:['stage','dirpanel','rightpanel'],funnel:['funnelview']};
 document.querySelectorAll('.navitem').forEach(n=>n.addEventListener('click',()=>{
  document.querySelectorAll('.navitem').forEach(x=>x.classList.remove('active')); n.classList.add('active');
- const v=n.dataset.v;
- ['stage','dirpanel','rightpanel','funnelview','techview'].forEach(id=>document.getElementById(id).classList.add('hidden'));
- document.getElementById('sop').classList.remove('on');
- if(v==='funnel'){ document.getElementById('funnelview').classList.remove('hidden'); }
- else if(v==='engine'){ ['stage','dirpanel','rightpanel'].forEach(id=>document.getElementById(id).classList.remove('hidden')); }
- else { ['stage','dirpanel','rightpanel'].forEach(id=>document.getElementById(id).classList.remove('hidden')); }
- closeTech();
 }));
 
 /* ================= 3D BRAIN ================= */
@@ -855,56 +731,7 @@ const stage=document.getElementById('stage');
 DOMAINS.forEach(d=>{const el=document.createElement('div');el.className='domain-node';
  el.style.left=(d.x*100)+'%';el.style.top=(d.y*100)+'%';
  el.innerHTML=`<div class="ring" style="border:2px solid ${d.c};box-shadow:0 0 14px ${d.c}55;color:${d.c}">⛉</div><div class="lbl" style="color:${d.c}">${d.n}</div>`;
- el.addEventListener('click',()=>{if(d.n==='TECH')openTech('TECH');});
  stage.appendChild(el);});
-
-/* ================= TECH VIEW ================= */
-const ORDER=['TECH','Sales','Communications','Finances','Clients','Marketing/Growth'];
-let techIdx=0;
-function openTech(name){techIdx=ORDER.indexOf(name);renderTech();}
-function closeTech(){document.getElementById('techview').classList.remove('on');
- document.getElementById('techpill').classList.add('hidden');}
-function renderTech(){const name=ORDER[techIdx];
- document.getElementById('techview').classList.add('on');
- document.getElementById('techpill').classList.remove('hidden');
- document.getElementById('techname').textContent=name;document.getElementById('tvname').textContent=name;
- document.getElementById('techtitle').textContent=name;
- const tv=document.getElementById('techview'),r=tv.getBoundingClientRect(),W2=r.width,H2=r.height,
-  svg=document.getElementById('techsvg'),box=document.getElementById('technodes');
- svg.setAttribute('viewBox',`0 0 ${W2} ${H2}`);box.innerHTML='';let lines='';
- const cxp=W2/2;
- const toolY=H2*.16,agentY=H2*.44,taskY=H2*.58,hubY=H2*.80;
- TECH.tools.forEach((tl,i)=>{const x=W2*.08+i*(W2*.84/(TECH.tools.length-1));
-  box.innerHTML+=`<div class="tnode" style="left:${x}px;top:${toolY}px"><div class="ic" style="border:2px solid ${tl[1]};color:${tl[1]}">⚙</div><div class="nm" style="color:${tl[1]}">${tl[0]}</div></div>`;});
- TECH.agents.forEach((ag,i)=>{const x=W2*.14+i*(W2*.72/(TECH.agents.length-1));
-  box.innerHTML+=`<div class="tnode" data-ag="${i}" style="left:${x}px;top:${agentY}px"><div class="ic" style="border:2px solid #eaf3ff;color:#eaf3ff">⛉</div><div class="nm" style="color:#eaf3ff">${ag[0]}</div><div class="ds">${ag[1]}</div></div>`;
-  lines+=`<line x1="${x}" y1="${toolY+22}" x2="${x}" y2="${agentY-22}" stroke="#7fd4ff" stroke-width="1.4" opacity=".75"/>`;
-  lines+=`<line x1="${x}" y1="${agentY+30}" x2="${x}" y2="${taskY-14}" stroke="#eaf3ff" stroke-width="1.4"/>`;
-  lines+=`<line x1="${x}" y1="${taskY+16}" x2="${cxp}" y2="${hubY-24}" stroke="#eaf3ff" stroke-width="1" stroke-dasharray="5 5" opacity=".6"/>`;});
- box.innerHTML+=`<div class="tnode" style="left:${cxp}px;top:${hubY}px"><div class="ic" style="border:2px solid #c084fc;color:#c084fc;box-shadow:0 0 16px #c084fc66">⛉</div><div class="nm" style="color:#c084fc">${name}</div></div>`;
- svg.innerHTML=lines;
- box.querySelectorAll('[data-ag]').forEach(el=>el.addEventListener('click',()=>openSop()));}
-document.getElementById('techprev').addEventListener('click',()=>{techIdx=(techIdx+5)%6;renderTech();});
-document.getElementById('technext').addEventListener('click',()=>{techIdx=(techIdx+1)%6;renderTech();});
-document.getElementById('tvprev').addEventListener('click',()=>{techIdx=(techIdx+5)%6;renderTech();});
-document.getElementById('tvnext').addEventListener('click',()=>{techIdx=(techIdx+1)%6;renderTech();});
-
-/* ================= SOP ================= */
-function openSop(){const s=TECH.sop;
- document.getElementById('sopcat').textContent='TECH';
- document.getElementById('soptitle').textContent=s.title;
- document.getElementById('sopsub').textContent=s.sub;
- document.getElementById('sophuman').textContent=s.human;
- document.getElementById('sopagent').textContent=s.agent;
- document.getElementById('sopagentrun').textContent=s.run;
- document.getElementById('sopsteps').innerHTML=s.steps.map((st,i)=>`<li><b>0${i+1}</b> ${st[0]}</li>`).join('');
- document.getElementById('soptoolsn').textContent=s.toolsn;
- document.getElementById('soptools').textContent=s.tools;
- document.getElementById('sopnotes').textContent=s.notes;
- document.getElementById('sopbtn').textContent=s.agent;
- document.getElementById('sop').classList.add('on');}
-document.getElementById('sopclose').addEventListener('click',()=>document.getElementById('sop').classList.remove('on'));
-document.getElementById('takebtn').addEventListener('click',()=>{addMsg('a','Skill "'+TECH.sop.agent+'" li gayi! ✅ Jab tum kaho ge to main ise Shampi me connect kar dunga.');});
 
 /* ================= CHAT ================= */
 const dock=document.getElementById('chatdock'),log=document.getElementById('chatlog');
@@ -922,13 +749,6 @@ document.getElementById('chatin').addEventListener('keydown',e=>{if(e.key==='Ent
 let clicks=0,ctimer=null;
 document.getElementById('micfab').addEventListener('click',()=>{clicks++;clearTimeout(ctimer);
  ctimer=setTimeout(()=>{if(clicks>=2)dock.classList.toggle('on');clicks=0;},350);});
-
-/* funnel client dots */
-(function(){const fs=document.getElementById('fstages');if(!fs)return;
- for(let i=0;i<14;i++){const d=document.createElement('div');
-  const px=4+Math.random()*92,py=8+Math.random()*52;
-  d.style.cssText=`position:absolute;left:${px}%;top:${py}%;width:9px;height:9px;border-radius:50%;border:1.5px solid #2dd4bf;box-shadow:0 0 8px #2dd4bf88;background:rgba(45,212,191,.25);z-index:2;pointer-events:none;animation:blink ${1.5+Math.random()*2}s infinite;`;
-  fs.style.position='relative';fs.appendChild(d);}})();
 
 /* tabs */
 document.getElementById('tab-radial').addEventListener('click',function(){this.classList.add('active');document.getElementById('tab-neural').classList.remove('active');});
