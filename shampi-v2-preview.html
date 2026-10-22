@@ -156,7 +156,7 @@
     for(let i=0;i<P_COUNT;i++){
       const th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1), rr=Math.pow(Math.random(),0.45)*R;
       const bx=Math.sin(ph)*Math.cos(th)*rr*1.15, by=Math.sin(ph)*Math.sin(th)*rr*0.75, bz=Math.cos(ph)*rr*0.85;
-      const icon=(i%14===0 && (i/14)<ICONS.length) ? ICONS[Math.floor(i/14)] : null;
+      const icon=null; /* icons hata diye — sirf dots wala brain */
       pts.push({_id:i, bx,by,bz, x:bx, y:by, z:bz,
         vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5, vz:(Math.random()-0.5)*0.5,
         r:icon?3.5:1+Math.random()*2.0, ph:Math.random()*Math.PI*2, hue:195+Math.random()*25,
