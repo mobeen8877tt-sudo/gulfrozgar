@@ -5,9 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SHAMPI OS</title>
 <style>
-  html,body{ margin:0; padding:0; height:100%; background:#060a13; }
+  html,body{ margin:0; padding:0; height:100%; background:#060a13; overflow:hidden; }
+  .glow{ position:fixed; left:50%; top:50%; width:90vmin; height:90vmin;
+    transform:translate(-50%,-50%); border-radius:50%;
+    background:radial-gradient(circle, rgba(127,212,255,.16) 0%, rgba(64,120,255,.07) 42%, transparent 70%);
+    animation:breathe 7s ease-in-out infinite; }
+  @keyframes breathe{
+    0%,100%{ opacity:.55; transform:translate(-50%,-50%) scale(1); }
+    50%{ opacity:1; transform:translate(-50%,-50%) scale(1.12); }
+  }
 </style>
 </head>
 <body>
+<div class="glow"></div>
 </body>
 </html>
