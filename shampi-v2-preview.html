@@ -7,9 +7,10 @@
 <style>
   *{ margin:0; padding:0; box-sizing:border-box; }
   html,body{ height:100%; }
-  body{ background:#000; overflow:hidden; font-family:'Segoe UI', Arial, sans-serif; position:relative; }
+  body{ background:#000; overflow:hidden; font-family:'Segoe UI', Arial, sans-serif; position:relative;
+    display:flex; gap:22px; padding:26px; }
 
-  /* ---------- colorful blobs (background) ---------- */
+  /* ---------- black & white light blobs (background) ---------- */
   .blob{ position:absolute; filter:blur(80px) saturate(.8); opacity:.6; }
   .blob1{ width:58vmax; height:58vmax; left:-14vmax; top:-20vmax; border-radius:50%;
     background:radial-gradient(circle at 30% 30%, #fafafa 0%, #bcbcbc 38%, #828282 68%, #e6e6e6 100%); }
@@ -18,15 +19,16 @@
   .blob3{ width:30vmax; height:30vmax; left:-6vmax; bottom:-12vmax; border-radius:50%;
     background:radial-gradient(circle at 50% 40%, #ffffff 0%, #969696 60%, rgba(150,150,150,0) 100%); }
 
-  /* ---------- glass overlay effect ---------- */
-  .glass{ position:absolute; background:rgba(255,255,255,.06);
+  /* ---------- glass panels ---------- */
+  .glass{ position:relative; background:rgba(255,255,255,.06);
     -webkit-backdrop-filter:blur(18px) saturate(150%); backdrop-filter:blur(18px) saturate(150%);
     border:1px solid rgba(255,255,255,.22); border-radius:26px;
-    box-shadow:0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25); }
-  .card{ width:min(620px,82vw); height:min(400px,54vh); left:50%; top:50%; transform:translate(-50%,-50%); }
-  .sq1{ width:118px; height:118px; left:23%; top:9%; border-radius:20px; }
-  .sq2{ width:138px; height:138px; left:7%; bottom:8%; border-radius:20px; }
-  .circ{ width:142px; height:142px; right:6%; top:31%; border-radius:50%; }
+    box-shadow:0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25);
+    display:flex; align-items:center; justify-content:center; }
+  .glass .lbl{ color:rgba(255,255,255,.88); font-size:21px; letter-spacing:2.5px; font-weight:600; }
+  #homePanel{ flex:1.5; }
+  #midSpace{ flex:1.8; }
+  #chatPanel{ flex:1.2; }
 </style>
 </head>
 <body>
@@ -34,9 +36,8 @@
   <div class="blob blob2"></div>
   <div class="blob blob3"></div>
 
-  <div class="glass sq1"></div>
-  <div class="glass card"></div>
-  <div class="glass circ"></div>
-  <div class="glass sq2"></div>
+  <div class="glass" id="homePanel"><div class="lbl">HOME PAGE</div></div>
+  <div id="midSpace"></div>
+  <div class="glass" id="chatPanel"><div class="lbl">CHATBOX</div></div>
 </body>
 </html>
