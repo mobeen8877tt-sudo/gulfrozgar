@@ -24,7 +24,26 @@
     -webkit-backdrop-filter:blur(18px) saturate(150%); backdrop-filter:blur(18px) saturate(150%);
     border:1px solid rgba(255,255,255,.22); border-radius:26px;
     box-shadow:0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25); }
-  #homePanel{ flex:1.0; display:flex; align-items:center; justify-content:center; }
+  #homePanel{ flex:1.0; overflow:hidden; padding:0; }
+  /* purana wala sidebar (shampi-clean) — home panel ke andar */
+  #sidebar { position:absolute; inset:0; z-index:2; border-radius:26px;
+    background:rgba(7,12,22,.96); display:flex; flex-direction:column; padding:14px 10px; overflow-y:auto; }
+  #sidebar::-webkit-scrollbar { width:4px; }
+  #sidebar::-webkit-scrollbar-thumb { background:rgba(127,212,255,.2); border-radius:2px; }
+  #sidebar .logo { display:flex; align-items:center; gap:9px; padding:4px 8px 14px; }
+  #sidebar .logo .lg { font-size:19px; }
+  #sidebar .logo .lt { color:#eaf3ff; font-size:12px; letter-spacing:3px; font-weight:700; }
+  #sidebar .logo .lv { color:#4a7ba6; font-size:9px; letter-spacing:1.5px; margin-top:2px; }
+  #sidebar .sec { color:#3d5a7a; font-size:9px; letter-spacing:2.5px; padding:12px 10px 6px; }
+  #sidebar .ni { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:9px;
+    color:#8ba3c7; font-size:12.5px; cursor:pointer; border:1px solid transparent; transition:all .15s; }
+  #sidebar .ni:hover { background:rgba(127,212,255,.07); color:#d5e9ff; }
+  #sidebar .ni.on { background:rgba(127,212,255,.12); border-color:rgba(127,212,255,.25); color:#fff; }
+  #sidebar .ni .ic { width:20px; text-align:center; font-size:14px; }
+  #sidebar .foot { margin-top:auto; padding:12px 10px 4px; border-top:1px solid rgba(127,212,255,.1); }
+  #sidebar .foot .st { display:flex; align-items:center; gap:7px; color:#4ade80; font-size:10.5px; }
+  #sidebar .foot .st .d { width:7px; height:7px; border-radius:50%; background:#4ade80; box-shadow:0 0 8px #4ade80; }
+  #sidebar .foot .sv { color:#3d5a7a; font-size:9.5px; margin-top:5px; letter-spacing:.5px; }
   #chatPanel{ flex:0.8; display:flex; align-items:center; justify-content:center; }
   .glass .lbl{ color:rgba(255,255,255,.88); font-size:21px; letter-spacing:2.5px; font-weight:600; }
 
@@ -78,7 +97,31 @@
   <div class="blob blob2"></div>
   <div class="blob blob3"></div>
 
-  <div class="glass" id="homePanel"><div class="lbl">HOME PAGE</div></div>
+  <div class="glass" id="homePanel">
+    <nav id="sidebar">
+      <div class="logo"><span class="lg">🔵</span><div><div class="lt">SHAMPI OS</div><div class="lv">V1 · OPERATOR MODE</div></div></div>
+      <div class="sec">OPERATE</div>
+      <div class="ni" data-nav="home"><span class="ic">🏠</span>Home</div>
+      <div class="ni" data-nav="comms"><span class="ic">💬</span>Comms</div>
+      <div class="ni" data-nav="funnel"><span class="ic">🔻</span>Funnel</div>
+      <div class="ni" data-nav="workflows"><span class="ic">⚙️</span>Workflows</div>
+      <div class="ni" data-nav="social"><span class="ic">📣</span>Social</div>
+      <div class="ni" data-nav="content"><span class="ic">📝</span>Content</div>
+      <div class="ni" data-nav="finances"><span class="ic">💰</span>Finances</div>
+      <div class="sec">AGENTS</div>
+      <div class="ni" data-nav="agents"><span class="ic">🤖</span>Agents</div>
+      <div class="ni" data-nav="tasks"><span class="ic">☰</span>Tasks</div>
+      <div class="ni" data-nav="skills"><span class="ic">✦</span>Skills</div>
+      <div class="ni" data-nav="orgchart"><span class="ic">◭</span>Org Chart</div>
+      <div class="sec">INTELLIGENCE</div>
+      <div class="ni on" data-nav="engine"><span class="ic">🧠</span>Shampi Engine</div>
+      <div class="ni" data-nav="doctor"><span class="ic">➕</span>Doctor</div>
+      <div class="sec">SYSTEM</div>
+      <div class="ni" data-nav="connections"><span class="ic">🔗</span>Connections</div>
+      <div class="ni" data-nav="roadmap"><span class="ic">🗺️</span>Roadmap</div>
+      <div class="foot"><div class="st"><span class="d"></span>21/21 systems live</div><div class="sv">localhost · sqlite · real agents</div></div>
+    </nav>
+  </div>
 
   <div id="midSpace">
     <div id="midTop">
@@ -311,6 +354,13 @@
   document.getElementById('agent-x').addEventListener('click',()=>{ agentPop.classList.remove('show'); selIcon=null; });
   resize(); frame();
 })();
+</script>
+<script>
+/* sidebar nav — click par active */
+document.querySelectorAll('#sidebar .ni').forEach(n=>n.addEventListener('click',()=>{
+  document.querySelectorAll('#sidebar .ni').forEach(x=>x.classList.remove('on'));
+  n.classList.add('on');
+}));
 </script>
 </body>
 </html>
