@@ -23,12 +23,33 @@
   .glass{ position:relative; background:rgba(255,255,255,.06);
     -webkit-backdrop-filter:blur(18px) saturate(150%); backdrop-filter:blur(18px) saturate(150%);
     border:1px solid rgba(255,255,255,.22); border-radius:26px;
-    box-shadow:0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25);
-    display:flex; align-items:center; justify-content:center; }
+    box-shadow:0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25); }
+  #homePanel{ flex:1.0; display:flex; align-items:center; justify-content:center; }
+  #chatPanel{ flex:0.8; display:flex; align-items:center; justify-content:center; }
   .glass .lbl{ color:rgba(255,255,255,.88); font-size:21px; letter-spacing:2.5px; font-weight:600; }
-  #homePanel{ flex:1.0; }
-  #midSpace{ flex:2.8; }
-  #chatPanel{ flex:0.8; }
+
+  /* ---------- middle column: boxes 1, 2, 3 ---------- */
+  #midSpace{ flex:2.8; display:flex; flex-direction:column; gap:22px; min-width:0; }
+  #midTop{ flex:0 0 44%; display:flex; gap:22px; min-height:0; }
+  .mbox{ flex:1; overflow:hidden; }
+
+  /* box 2: neural panel */
+  #box2{ display:flex; align-items:center; padding:18px 14px; }
+  #box2 .btns{ display:flex; flex-direction:column; gap:12px; z-index:2; }
+  .nbtn{ display:flex; align-items:center; gap:9px; padding:9px 16px 9px 11px; border-radius:12px;
+    background:rgba(10,10,14,.55); border:1px solid rgba(255,255,255,.20);
+    color:#e8e8e8; font-size:13.5px; letter-spacing:.4px; white-space:nowrap; }
+  .nbtn .ic{ width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16); font-size:12px; }
+  #box2 svg.wires{ position:absolute; inset:0; width:100%; height:100%; z-index:1; }
+
+  /* box 1: brain */
+  #box1{ padding:0; }
+  #brainCanvas{ position:absolute; inset:0; width:100%; height:100%; }
+
+  /* box 3: office floor plan */
+  #box3{ flex:1; padding:14px; }
+  #box3 svg{ width:100%; height:100%; display:block; }
 </style>
 </head>
 <body>
@@ -37,7 +58,100 @@
   <div class="blob blob3"></div>
 
   <div class="glass" id="homePanel"><div class="lbl">HOME PAGE</div></div>
-  <div id="midSpace"></div>
+
+  <div id="midSpace">
+    <div id="midTop">
+      <!-- 2: neural panel -->
+      <div class="glass mbox" id="box2">
+        <div class="btns">
+          <div class="nbtn"><span class="ic">◉</span>Memory</div>
+          <div class="nbtn"><span class="ic">✦</span>Skills</div>
+          <div class="nbtn"><span class="ic">♡</span>Soul</div>
+          <div class="nbtn"><span class="ic">⚙</span>Settings</div>
+        </div>
+        <svg class="wires" viewBox="0 0 300 200" preserveAspectRatio="none">
+          <path d="M118,38 C 190,38 210,100 282,100" stroke="#ffffff" stroke-width="2" fill="none" opacity=".85"/>
+          <path d="M112,84 C 180,84 215,100 282,100" stroke="#c9c9c9" stroke-width="2" fill="none" opacity=".8"/>
+          <path d="M104,130 C 175,130 215,100 282,100" stroke="#9a9a9a" stroke-width="2" fill="none" opacity=".8"/>
+          <path d="M122,172 C 195,172 215,100 282,100" stroke="#6f6f6f" stroke-width="2" fill="none" opacity=".75"/>
+          <circle cx="284" cy="100" r="5" fill="#fff"/>
+          <circle cx="284" cy="100" r="11" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <!-- 1: brain -->
+      <div class="glass mbox" id="box1">
+        <canvas id="brainCanvas"></canvas>
+      </div>
+    </div>
+    <!-- 3: office -->
+    <div class="glass" id="box3">
+      <svg viewBox="0 0 640 300" preserveAspectRatio="xMidYMid meet">
+        <g fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.55)" stroke-width="2">
+          <rect x="8" y="8" width="624" height="284" rx="6"/>
+        </g>
+        <g fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.4)" stroke-width="1.5">
+          <rect x="8" y="8" width="200" height="130"/>
+          <rect x="208" y="8" width="210" height="130"/>
+          <rect x="418" y="8" width="214" height="130"/>
+          <rect x="8" y="138" width="150" height="154"/>
+          <rect x="482" y="138" width="150" height="154"/>
+        </g>
+        <g fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.35)" stroke-width="1">
+          <rect x="30" y="30" width="52" height="24"/><rect x="100" y="30" width="52" height="24"/>
+          <rect x="30" y="80" width="52" height="24"/><rect x="100" y="80" width="52" height="24"/>
+          <rect x="240" y="30" width="52" height="24"/><rect x="310" y="30" width="52" height="24"/>
+          <rect x="240" y="80" width="52" height="24"/><rect x="310" y="80" width="52" height="24"/>
+          <rect x="450" y="30" width="52" height="24"/><rect x="525" y="30" width="52" height="24"/>
+          <rect x="450" y="80" width="52" height="24"/><rect x="525" y="80" width="52" height="24"/>
+          <rect x="34" y="180" width="44" height="22"/><rect x="92" y="180" width="44" height="22"/>
+          <rect x="34" y="230" width="44" height="22"/><rect x="92" y="230" width="44" height="22"/>
+          <rect x="508" y="180" width="44" height="22"/><rect x="562" y="180" width="44" height="22"/>
+        </g>
+        <g fill="rgba(255,255,255,.75)">
+          <circle cx="56" cy="66" r="5"/><circle cx="126" cy="66" r="5"/><circle cx="266" cy="66" r="5"/>
+          <circle cx="336" cy="66" r="5"/><circle cx="476" cy="66" r="5"/><circle cx="551" cy="66" r="5"/>
+          <circle cx="56" cy="216" r="5"/><circle cx="530" cy="216" r="5"/>
+        </g>
+        <g fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.4)" stroke-width="1.5">
+          <rect x="235" y="185" width="170" height="60" rx="8"/>
+        </g>
+        <g fill="rgba(255,255,255,.7)">
+          <circle cx="270" cy="215" r="5"/><circle cx="320" cy="215" r="5"/><circle cx="370" cy="215" r="5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
   <div class="glass" id="chatPanel"><div class="lbl">CHATBOX</div></div>
+
+<script>
+/* static particle brain (no motion) */
+(function(){
+  const cv=document.getElementById('brainCanvas'), ctx=cv.getContext('2d');
+  function draw(){
+    const r=cv.parentElement.getBoundingClientRect();
+    const W=r.width, H=r.height, DPR=Math.min(devicePixelRatio||1,2);
+    cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.clearRect(0,0,W,H);
+    const cx=W/2, cy=H/2, rx=Math.min(W,H)*0.30, ry=Math.min(W,H)*0.36;
+    let seed=42; const rnd=()=>{ seed=(seed*16807)%2147483647; return seed/2147483647; };
+    for(let i=0;i<950;i++){
+      const side=rnd()<0.5?-1:1;
+      const a=rnd()*Math.PI*2, rr=Math.pow(rnd(),0.55);
+      const x=cx + side*rx*0.52 + Math.cos(a)*rr*rx*0.52;
+      const y=cy + Math.sin(a)*rr*ry*(0.9+0.15*Math.cos(x*0.05));
+      const s=0.6+rnd()*1.9, al=0.25+rnd()*0.75;
+      ctx.beginPath(); ctx.arc(x,y,s,0,7);
+      ctx.fillStyle='rgba(255,255,255,'+al.toFixed(2)+')';
+      ctx.shadowColor='rgba(255,255,255,.8)'; ctx.shadowBlur=s*3;
+      ctx.fill(); ctx.shadowBlur=0;
+    }
+    ctx.beginPath();
+    ctx.ellipse(cx,cy,rx*1.12,ry*1.12,0,0,7);
+    ctx.strokeStyle='rgba(255,255,255,.14)'; ctx.lineWidth=1; ctx.stroke();
+  }
+  draw(); addEventListener('resize',draw);
+})();
+</script>
 </body>
 </html>
