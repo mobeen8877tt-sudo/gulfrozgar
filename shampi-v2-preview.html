@@ -13,25 +13,28 @@
   .blob{ position:absolute; filter:blur(80px) saturate(.8); opacity:.6; }
   .blob1{ width:58vmax; height:58vmax; left:-14vmax; top:-20vmax; border-radius:50%;
     background:radial-gradient(circle at 30% 30%, #ff9ec7 0%, #c4a1f5 38%, #7aa5f0 68%, #7dd8ef 100%);
-    animation:drift1 26s ease-in-out infinite alternate; }
+    animation:drift1 17s ease-in-out infinite alternate; }
   .blob2{ width:52vmax; height:52vmax; right:-16vmax; bottom:-18vmax; border-radius:46% 54% 60% 40%/50% 46% 54% 50%;
     background:radial-gradient(circle at 65% 65%, #ff8fd8 0%, #c4a1f5 45%, #7dd8ef 100%);
-    animation:drift2 30s ease-in-out infinite alternate; }
+    animation:drift2 20s ease-in-out infinite alternate; }
   .blob3{ width:30vmax; height:30vmax; left:-6vmax; bottom:-12vmax; border-radius:50%;
     background:radial-gradient(circle at 50% 40%, #ffb1da 0%, #f06bb0 60%, rgba(240,107,176,0) 100%);
-    animation:drift1 22s ease-in-out infinite alternate-reverse; }
-  @keyframes drift1{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(3.5vmax,2.5vmax) scale(1.07); } }
-  @keyframes drift2{ from{ transform:translate(0,0) scale(1.05); } to{ transform:translate(-3vmax,-2vmax) scale(1); } }
+    animation:drift1 15s ease-in-out infinite alternate-reverse; }
+  @keyframes drift1{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(4.5vmax,3vmax) scale(1.09); } }
+  @keyframes drift2{ from{ transform:translate(0,0) scale(1.06); } to{ transform:translate(-4vmax,-2.5vmax) scale(1); } }
 
   /* ---------- glass overlay effect ---------- */
   .glass{ position:absolute; background:rgba(255,255,255,.06);
     -webkit-backdrop-filter:blur(18px) saturate(150%); backdrop-filter:blur(18px) saturate(150%);
     border:1px solid rgba(255,255,255,.22); border-radius:26px;
     box-shadow:0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25); }
-  .card{ width:min(620px,82vw); height:min(400px,54vh); left:50%; top:50%; transform:translate(-50%,-50%); }
-  .sq1{ width:118px; height:118px; left:23%; top:9%; border-radius:20px; }
-  .sq2{ width:138px; height:138px; left:7%; bottom:8%; border-radius:20px; }
-  .circ{ width:142px; height:142px; right:6%; top:31%; border-radius:50%; }
+  .card{ width:min(620px,82vw); height:min(400px,54vh); left:50%; top:50%; transform:translate(-50%,-50%);
+    animation:cardFloat 9s ease-in-out infinite; }
+  .sq1{ width:118px; height:118px; left:23%; top:9%; border-radius:20px; animation:floaty 8s ease-in-out infinite alternate; }
+  .sq2{ width:138px; height:138px; left:7%; bottom:8%; border-radius:20px; animation:floaty 10s ease-in-out infinite alternate-reverse; }
+  .circ{ width:142px; height:142px; right:6%; top:31%; border-radius:50%; animation:floaty 11s ease-in-out infinite alternate; }
+  @keyframes floaty{ from{ transform:translateY(-9px); } to{ transform:translateY(11px); } }
+  @keyframes cardFloat{ 0%,100%{ transform:translate(-50%,-50%) scale(1); } 50%{ transform:translate(-50%,-51.5%) scale(1.015); } }
 </style>
 </head>
 <body>
