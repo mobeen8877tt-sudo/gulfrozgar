@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHAMPI OS</title>
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{ background:#000; overflow:hidden; font-family:'Segoe UI', Arial, sans-serif; position:relative;
+    display:flex; gap:22px; padding:26px; }
+
+  /* ---------- black & white light blobs (background) ---------- */
+  .blob{ position:absolute; filter:blur(80px) saturate(.8); opacity:.6; }
+  .blob1{ width:58vmax; height:58vmax; left:-14vmax; top:-20vmax; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #fafafa 0%, #bcbcbc 38%, #828282 68%, #e6e6e6 100%); }
+  .blob2{ width:52vmax; height:52vmax; right:-16vmax; bottom:-18vmax; border-radius:46% 54% 60% 40%/50% 46% 54% 50%;
+    background:radial-gradient(circle at 65% 65%, #e2e2e2 0%, #a3a3a3 45%, #f2f2f2 100%); }
+  .blob3{ width:30vmax; height:30vmax; left:-6vmax; bottom:-12vmax; border-radius:50%;
+    background:radial-gradient(circle at 50% 40%, #ffffff 0%, #969696 60%, rgba(150,150,150,0) 100%); }
+
+  /* ---------- glass panels ---------- */
+  .glass{ position:relative; background:rgba(255,255,255,.06);
+    -webkit-backdrop-filter:blur(18px) saturate(150%); backdrop-filter:blur(18px) saturate(150%);
+    border:1px solid rgba(255,255,255,.22); border-radius:26px;
+    box-shadow:0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25); }
+  #homePanel{ flex:1.0; overflow:hidden; padding:0; }
+  /* purana wala sidebar (shampi-clean) — home panel ke andar */
+  #sidebar { position:absolute; inset:0; z-index:2; border-radius:26px;
+    background:transparent; display:flex; flex-direction:column; padding:16px 12px; overflow-y:auto; }
+  #sidebar::-webkit-scrollbar { width:4px; }
+  #sidebar::-webkit-scrollbar-thumb { background:rgba(255,255,255,.18); border-radius:2px; }
+  #sidebar .logo { display:flex; align-items:center; gap:9px; padding:4px 8px 14px; }
+  #sidebar .logo .lg { font-size:19px; }
+  #sidebar .logo .lt { color:#eaf3ff; font-size:12px; letter-spacing:3px; font-weight:700; }
+  #sidebar .logo .lv { color:rgba(255,255,255,.45); font-size:9px; letter-spacing:1.5px; margin-top:2px; }
+  #sidebar .sec { color:rgba(255,255,255,.38); font-size:9px; letter-spacing:2.5px; padding:12px 10px 6px; }
+  #sidebar .ni { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:9px;
+    color:rgba(232,240,255,.72); font-size:12.5px; cursor:pointer; border:1px solid transparent; transition:all .15s; }
+  #sidebar .ni:hover { background:rgba(255,255,255,.07); color:#fff; }
+  #sidebar .ni.on { background:rgba(255,255,255,.11); border-color:rgba(255,255,255,.28); color:#fff; }
+  #sidebar .ni .ic { width:20px; text-align:center; font-size:14px; }
+  #sidebar .foot { margin-top:auto; padding:12px 10px 4px; border-top:1px solid rgba(255,255,255,.14); }
+  #sidebar .foot .st { display:flex; align-items:center; gap:7px; color:#4ade80; font-size:10.5px; }
+  #sidebar .foot .st .d { width:7px; height:7px; border-radius:50%; background:#4ade80; box-shadow:0 0 8px #4ade80; }
+  #sidebar .foot .sv { color:rgba(255,255,255,.38); font-size:9.5px; margin-top:5px; letter-spacing:.5px; }
+  #chatPanel{ flex:0.8; overflow:hidden; padding:0; }
+  /* chatbox — home panel ke glass style me */
+  #chatbox { position:absolute; inset:0; z-index:2; border-radius:26px;
+    display:flex; flex-direction:column; background:transparent; }
+  #chatbox .chead { padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.14);
+    display:flex; align-items:center; gap:10px; }
+  #chatbox .chead .dot { width:10px; height:10px; border-radius:50%; background:#4ade80;
+    box-shadow:0 0 10px #4ade80; animation:blink 1.6s infinite; }
+  @keyframes blink { 50% { opacity:.4; } }
+  #chatbox .chead .t { color:#f2f7ff; font-size:13px; letter-spacing:2px; }
+  #chatbox .chead .s { color:rgba(255,255,255,.45); font-size:10px; margin-left:auto; letter-spacing:1px; }
+  #chatlog { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; }
+  #chatlog::-webkit-scrollbar { width:4px; }
+  #chatlog::-webkit-scrollbar-thumb { background:rgba(255,255,255,.18); border-radius:2px; }
+  .msg { font-size:13px; line-height:1.65; padding:10px 13px; border-radius:12px;
+    max-width:88%; word-wrap:break-word; color:#e6eefb; }
+  .msg.u { align-self:flex-end; background:linear-gradient(135deg,#1c3a5e,#254a75); border-bottom-right-radius:4px; }
+  .msg.a { align-self:flex-start; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-bottom-left-radius:4px; }
+  .msg .tm { display:block; font-size:9px; color:rgba(255,255,255,.4); margin-top:5px; letter-spacing:1px; }
+  #chatrow { display:flex; border-top:1px solid rgba(255,255,255,.14); padding:10px; gap:8px; }
+  #chatin { flex:1; min-width:0; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.18);
+    border-radius:20px; outline:none; color:#fff; font-size:13px; padding:10px 15px; font-family:inherit; }
+  #chatin::placeholder { color:rgba(255,255,255,.35); }
+  #chatsend { width:42px; height:42px; border-radius:50%; border:none; cursor:pointer; font-size:17px;
+    background:linear-gradient(135deg,#2a7fff,#4da6ff); color:#fff;
+    box-shadow:0 0 14px rgba(80,180,255,.4); flex-shrink:0; }
+  #chatsend:active { transform:scale(.92); }
+  .glass .lbl{ color:rgba(255,255,255,.88); font-size:21px; letter-spacing:2.5px; font-weight:600; }
+
+  /* ---------- middle column: boxes 1, 2, 3 ---------- */
+  #midSpace{ flex:2.8; display:flex; flex-direction:column; gap:22px; min-width:0; }
+  #midTop{ flex:0 0 44%; display:flex; gap:22px; min-height:0; position:relative; }
+  /* box 2 se brain tak jaati lakeerein (gap ke upar se) */
+  .wireSvg{ position:absolute; inset:0; width:100%; height:100%; z-index:6; pointer-events:none; }
+  #brainDot{ position:absolute; left:75.5%; top:50%; width:14px; height:14px; margin:-7px 0 0 -7px;
+    border-radius:50%; background:#cfeaff; z-index:7; pointer-events:none;
+    box-shadow:0 0 18px 6px rgba(127,212,255,.75), 0 0 46px 20px rgba(87,182,255,.35); }
+  #brainDot::after{ content:''; position:absolute; inset:-9px; border-radius:50%;
+    border:1.5px solid rgba(127,212,255,.5); }
+  .mbox{ flex:1; overflow:hidden; }
+
+  /* box 2: neural panel */
+  #box2{ display:flex; align-items:center; padding:18px 14px; }
+  #box2 .btns{ display:flex; flex-direction:column; gap:12px; z-index:2; }
+  .nbtn{ display:flex; align-items:center; gap:9px; padding:9px 16px 9px 11px; border-radius:12px;
+    background:rgba(8,24,48,.60); border:1px solid rgba(127,212,255,.38);
+    color:#e2f1ff; font-size:13.5px; letter-spacing:.4px; white-space:nowrap;
+    box-shadow:0 0 14px rgba(87,182,255,.12); }
+  .nbtn .ic{ width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center;
+    background:rgba(127,212,255,.16); border:1px solid rgba(127,212,255,.35); font-size:12px; color:#a8dcff; }
+  #box2 svg.wires{ position:absolute; inset:0; width:100%; height:100%; z-index:1; }
+
+  /* box 1: brain */
+  #box1{ padding:0; }
+  #brainCanvas{ position:absolute; inset:0; width:100%; height:100%; cursor:pointer; }
+  /* agent popup (brain icon tap) */
+  #agent-pop{ position:absolute; width:215px; padding:13px 14px; border-radius:16px; z-index:5;
+    background:rgba(6,12,24,.88); border:1px solid rgba(127,212,255,.45);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    box-shadow:0 18px 40px rgba(0,0,0,.55); opacity:0; pointer-events:none;
+    transform:translateY(6px) scale(.97); transition:all .22s ease; }
+  #agent-pop.show{ opacity:1; pointer-events:auto; transform:translateY(0) scale(1); }
+  #agent-pop .ap-head{ display:flex; align-items:center; gap:8px; font-size:15px; font-weight:700; color:#eaf3ff; }
+  #agent-pop #agent-icon{ font-size:19px; }
+  #agent-pop #agent-desc{ margin-top:5px; font-size:11.5px; line-height:1.5; color:#a9c3e2; }
+  #agent-pop #agent-status{ margin-top:7px; font-size:10.5px; letter-spacing:1.2px; font-weight:700; }
+  #agent-pop #agent-x{ position:absolute; top:7px; right:10px; cursor:pointer; color:#8fb8dd; font-size:12px; }
+  #agent-pop #agent-x:hover{ color:#fff; }
+
+  /* box 3: office floor plan */
+  #box3{ flex:1; padding:14px; }
+  #box3 svg{ width:100%; height:100%; display:block; }
+</style>
+</head>
+<body>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <div class="glass" id="homePanel">
+    <nav id="sidebar">
+      <div class="logo"><span class="lg">🔵</span><div><div class="lt">SHAMPI OS</div><div class="lv">V1 · OPERATOR MODE</div></div></div>
+      <div class="sec">OPERATE</div>
+      <div class="ni" data-nav="home"><span class="ic">🏠</span>Home</div>
+      <div class="ni" data-nav="comms"><span class="ic">💬</span>Comms</div>
+      <div class="ni" data-nav="funnel"><span class="ic">🔻</span>Funnel</div>
+      <div class="ni" data-nav="workflows"><span class="ic">⚙️</span>Workflows</div>
+      <div class="ni" data-nav="social"><span class="ic">📣</span>Social</div>
+      <div class="ni" data-nav="content"><span class="ic">📝</span>Content</div>
+      <div class="ni" data-nav="finances"><span class="ic">💰</span>Finances</div>
+      <div class="sec">AGENTS</div>
+      <div class="ni" data-nav="agents"><span class="ic">🤖</span>Agents</div>
+      <div class="ni" data-nav="tasks"><span class="ic">☰</span>Tasks</div>
+      <div class="ni" data-nav="skills"><span class="ic">✦</span>Skills</div>
+      <div class="ni" data-nav="orgchart"><span class="ic">◭</span>Org Chart</div>
+      <div class="sec">INTELLIGENCE</div>
+      <div class="ni on" data-nav="engine"><span class="ic">🧠</span>Shampi Engine</div>
+      <div class="ni" data-nav="doctor"><span class="ic">➕</span>Doctor</div>
+      <div class="sec">SYSTEM</div>
+      <div class="ni" data-nav="connections"><span class="ic">🔗</span>Connections</div>
+      <div class="ni" data-nav="roadmap"><span class="ic">🗺️</span>Roadmap</div>
+      <div class="foot"><div class="st"><span class="d"></span>21/21 systems live</div><div class="sv">localhost · sqlite · real agents</div></div>
+    </nav>
+  </div>
+
+  <div id="midSpace">
+    <div id="midTop">
+      <!-- 2: neural panel -->
+      <div class="glass mbox" id="box2">
+        <div class="btns">
+          <div class="nbtn"><span class="ic">◉</span>Memory</div>
+          <div class="nbtn"><span class="ic">✦</span>Skills</div>
+          <div class="nbtn"><span class="ic">♡</span>Soul</div>
+          <div class="nbtn"><span class="ic">⚙</span>Settings</div>
+        </div>
+      </div>
+      <!-- 1: brain -->
+      <div class="glass mbox" id="box1">
+        <canvas id="brainCanvas"></canvas>
+        <div id="agent-pop">
+          <span id="agent-x">✕</span>
+          <div class="ap-head"><span id="agent-icon">📘</span><span id="agent-name">Agent</span></div>
+          <div id="agent-desc"></div>
+          <div id="agent-status"></div>
+        </div>
+      </div>
+
+      <svg class="wireSvg" viewBox="0 0 1000 400" preserveAspectRatio="none">
+        <g fill="none" stroke-linecap="round">
+          <path d="M185,100 C 430,100 540,200 748,200" stroke="#57b6ff" stroke-width="7" opacity=".14"/>
+          <path d="M185,167 C 430,167 540,200 748,200" stroke="#57b6ff" stroke-width="7" opacity=".14"/>
+          <path d="M185,233 C 430,233 540,200 748,200" stroke="#57b6ff" stroke-width="7" opacity=".14"/>
+          <path d="M185,300 C 430,300 540,200 748,200" stroke="#57b6ff" stroke-width="7" opacity=".14"/>
+          <path d="M185,100 C 430,100 540,200 748,200" stroke="#8fd8ff" stroke-width="2.4" opacity=".95"/>
+          <path d="M185,167 C 430,167 540,200 748,200" stroke="#57b6ff" stroke-width="2.4" opacity=".95"/>
+          <path d="M185,233 C 430,233 540,200 748,200" stroke="#2f7fe0" stroke-width="2.4" opacity=".95"/>
+          <path d="M185,300 C 430,300 540,200 748,200" stroke="#cfeaff" stroke-width="2.4" opacity=".9"/>
+        </g>
+      </svg>
+      <div id="brainDot"></div>
+    </div>
+    <!-- 3: office -->
+  <div class="glass" id="box3">
+    <svg width="100%" height="100%" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" style="display:block">
+      <defs>
+        <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#33363d"/><stop offset="1" stop-color="#191a1e"/>
+        </linearGradient>
+        <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2b2b30"/><stop offset="1" stop-color="#131316"/>
+        </linearGradient>
+        <linearGradient id="winG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#4a5058"/><stop offset="1" stop-color="#23262b"/>
+        </linearGradient>
+        <linearGradient id="scrG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#12325e"/><stop offset="1" stop-color="#1d4e89"/>
+        </linearGradient>
+        <g id="deskUnit">
+          <ellipse cx="0" cy="52" rx="86" ry="10" fill="#000" opacity=".35"/>
+          <rect x="-78" y="6" width="156" height="10" rx="3" fill="#3a3d44"/>
+          <rect x="-70" y="16" width="8" height="34" fill="#232529"/>
+          <rect x="62" y="16" width="8" height="34" fill="#232529"/>
+          <rect x="-27" y="-38" width="54" height="34" rx="3" fill="url(#scrG)"/>
+          <rect x="-27" y="-38" width="54" height="34" rx="3" fill="none" stroke="#8f979f" stroke-width="1.4"/>
+          <rect x="-4" y="-4" width="8" height="8" fill="#2c2e33"/>
+          <rect x="-20" y="3" width="40" height="4" rx="2" fill="#17181b"/>
+          <circle cx="-46" cy="-2" r="3" fill="#c8ccd2"/>
+          <g>
+            <rect x="-17" y="26" width="34" height="24" rx="9" fill="#101114"/>
+            <rect x="-13" y="18" width="26" height="12" rx="6" fill="#1d1e22"/>
+            <rect x="-15" y="46" width="30" height="6" fill="#0c0c0e"/>
+            <circle cx="0" cy="9" r="8.5" fill="#d7dbe0"/>
+            <path d="M-13 26 Q0 14 13 26 L13 30 L-13 30 Z" fill="#26282e"/>
+          </g>
+        </g>
+        <g id="plant">
+          <path d="M-14 0 L14 0 L10 -26 L-10 -26 Z" fill="#24262b"/>
+          <path d="M0 -24 C-16 -38 -18 -52 -14 -62 C-4 -54 0 -42 0 -24" fill="#5d646d"/>
+          <path d="M0 -24 C2 -44 10 -56 20 -60 C20 -44 12 -32 0 -24" fill="#4a5058"/>
+          <path d="M0 -24 C-2 -40 -8 -48 -16 -50 C-12 -38 -6 -30 0 -24" fill="#6b727c"/>
+        </g>
+        <g id="pendant">
+          <rect x="-1" y="0" width="2" height="26" fill="#0e0e10"/>
+          <path d="M-13 40 L0 26 L13 40 Z" fill="#3f434b"/>
+          <circle cx="0" cy="43" r="4" fill="#e8ecf1"/>
+          <circle cx="0" cy="43" r="10" fill="#ffffff" opacity=".10"/>
+        </g>
+      </defs>
+
+      <rect x="0" y="0" width="1200" height="330" fill="url(#wallG)"/>
+      <rect x="0" y="330" width="1200" height="190" fill="url(#floorG)"/>
+      <g stroke="#ffffff" stroke-opacity=".05">
+        <line x1="0" y1="368" x2="1200" y2="368"/><line x1="0" y1="412" x2="1200" y2="412"/>
+        <line x1="0" y1="462" x2="1200" y2="462"/><line x1="200" y1="330" x2="120" y2="520"/>
+        <line x1="480" y1="330" x2="440" y2="520"/><line x1="760" y1="330" x2="800" y2="520"/>
+        <line x1="1020" y1="330" x2="1120" y2="520"/>
+      </g>
+      <rect x="0" y="0" width="1200" height="34" fill="#101114"/>
+      <g fill="#e8ecf1" opacity=".85">
+        <rect x="90" y="14" width="42" height="5" rx="2.5"/><rect x="290" y="14" width="42" height="5" rx="2.5"/>
+        <rect x="490" y="14" width="42" height="5" rx="2.5"/><rect x="690" y="14" width="42" height="5" rx="2.5"/>
+        <rect x="890" y="14" width="42" height="5" rx="2.5"/><rect x="1070" y="14" width="42" height="5" rx="2.5"/>
+      </g>
+
+      <g>
+        <rect x="856" y="52" width="300" height="212" rx="6" fill="url(#winG)" stroke="#0e0e10" stroke-width="4"/>
+        <line x1="1006" y1="52" x2="1006" y2="264" stroke="#0e0e10" stroke-width="4"/>
+        <line x1="856" y1="158" x2="1156" y2="158" stroke="#0e0e10" stroke-width="4"/>
+        <g fill="#16171b">
+          <rect x="872" y="168" width="34" height="96"/><rect x="912" y="146" width="26" height="118"/>
+          <rect x="944" y="182" width="40" height="82"/><rect x="1022" y="158" width="30" height="106"/>
+          <rect x="1058" y="138" width="24" height="126"/><rect x="1088" y="176" width="44" height="88"/>
+        </g>
+        <g fill="#e8ecf1" opacity=".55">
+          <rect x="880" y="180" width="4" height="4"/><rect x="894" y="196" width="4" height="4"/>
+          <rect x="920" y="160" width="4" height="4"/><rect x="1030" y="176" width="4" height="4"/>
+          <rect x="1066" y="156" width="4" height="4"/><rect x="1098" y="192" width="4" height="4"/>
+          <rect x="952" y="196" width="4" height="4"/><rect x="1044" y="204" width="4" height="4"/>
+        </g>
+      </g>
+
+      <g>
+        <rect x="330" y="58" width="290" height="142" rx="8" fill="#0b0c0e" stroke="#4a4d55" stroke-width="2"/>
+        <rect x="342" y="70" width="266" height="118" rx="4" fill="url(#scrG)"/>
+        <text x="475" y="118" text-anchor="middle" fill="#eaf4ff" font-size="25" font-weight="700" letter-spacing="3">SHAMPI HQ</text>
+        <text x="475" y="144" text-anchor="middle" fill="#bcd8ff" font-size="12" letter-spacing="4">AGENTS AT WORK</text>
+        <g stroke="#7db8ff" stroke-width="2.4" fill="none" opacity=".9">
+          <polyline points="366,168 402,152 434,162 470,140 506,154 548,146 588,158"/>
+        </g>
+      </g>
+
+      <rect x="52" y="66" width="120" height="150" rx="4" fill="#101114" stroke="#4a4d55" stroke-width="2"/>
+      <circle cx="112" cy="118" r="26" fill="none" stroke="#c8ccd2" stroke-width="2"/>
+      <circle cx="112" cy="118" r="13" fill="none" stroke="#7d838c" stroke-width="1.6"/>
+      <text x="112" y="196" text-anchor="middle" fill="#9aa0a8" font-size="10" letter-spacing="3">EST · 2026</text>
+      <use href="#plant" transform="translate(232,300) scale(1.15)"/>
+      <use href="#plant" transform="translate(700,296) scale(.95)"/>
+
+      <use href="#pendant" transform="translate(320,34)"/>
+      <use href="#pendant" transform="translate(620,34)"/>
+      <use href="#pendant" transform="translate(920,34)"/>
+
+      <rect x="238" y="356" width="724" height="138" rx="10" fill="#1b1c1f" stroke="#45474e" stroke-width="1.6"/>
+      <rect x="252" y="366" width="696" height="118" rx="8" fill="none" stroke="#33353b" stroke-width="1.2"/>
+
+      <use href="#deskUnit" transform="translate(360,352) scale(.92)"/>
+      <use href="#deskUnit" transform="translate(600,352) scale(.92)"/>
+      <use href="#deskUnit" transform="translate(840,352) scale(.92)"/>
+      <use href="#deskUnit" transform="translate(400,446) scale(1.18)"/>
+      <use href="#deskUnit" transform="translate(660,446) scale(1.18)"/>
+      <use href="#deskUnit" transform="translate(905,446) scale(1.18)"/>
+
+      <g>
+        <ellipse cx="112" cy="452" rx="106" ry="12" fill="#000" opacity=".35"/>
+        <rect x="18" y="392" width="188" height="58" rx="14" fill="#2e3036"/>
+        <rect x="18" y="368" width="188" height="36" rx="14" fill="#26282e"/>
+        <rect x="8" y="380" width="26" height="58" rx="11" fill="#33353c"/>
+        <rect x="190" y="380" width="26" height="58" rx="11" fill="#33353c"/>
+        <line x1="112" y1="372" x2="112" y2="402" stroke="#17181b" stroke-width="3"/>
+        <rect x="56" y="398" width="44" height="20" rx="6" fill="#c8ccd2"/>
+        <rect x="124" y="398" width="44" height="20" rx="6" fill="#8f959d"/>
+        <rect x="72" y="452" width="80" height="8" rx="3" fill="#1c1d20"/>
+        <rect x="66" y="460" width="6" height="16" fill="#101114"/><rect x="152" y="460" width="6" height="16" fill="#101114"/>
+        <circle cx="112" cy="449" r="4.5" fill="#e8ecf1"/>
+      </g>
+      <use href="#plant" transform="translate(1050,486) scale(1.5)"/>
+      <g>
+        <rect x="1032" y="330" width="4" height="120" fill="#101114"/>
+        <path d="M1018 330 L1034 306 L1050 330 Z" fill="#3f434b"/>
+        <circle cx="1034" cy="334" r="5" fill="#e8ecf1"/>
+      </g>
+    </svg>
+  </div>
+  </div>
+
+  <div class="glass" id="chatPanel">
+    <aside id="chatbox">
+      <div class="chead"><span class="dot"></span><span class="t">SHAMPI</span><span class="s">LIVE</span></div>
+      <div id="chatlog">
+        <div class="msg a">Salam jani! Main Shampi — tumhara AI operator. Kya karun tumhare liye?</div>
+      </div>
+      <div id="chatrow">
+        <input id="chatin" placeholder="Shampi se kaho…" autocomplete="off">
+        <button id="chatsend">➤</button>
+      </div>
+    </aside>
+  </div>
+
+<script>
+/* ===== APNA WALA BRAIN (shampi-clean wala) — 3D particles + social agent icons ===== */
+(function(){
+  const cv=document.getElementById('brainCanvas'), ctx=cv.getContext('2d');
+  let W=0,H=0,CX=0,CY=0,R=0;
+  const P_COUNT=920, FOV=900;
+  let pts=[];
+  function seedBrain(){
+    pts=[];
+    const ICONS=['📧','💬','📘','📸','🌤️','📺','📰','🎵','📅','🗺️','💾','🐦','💼','🎭','🔍','⏰','📞','💳','🏦','🛒','📊','🎮'];
+    for(let i=0;i<P_COUNT;i++){
+      const th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1), rr=Math.pow(Math.random(),0.45)*R;
+      const bx=Math.sin(ph)*Math.cos(th)*rr*1.15, by=Math.sin(ph)*Math.sin(th)*rr*0.75, bz=Math.cos(ph)*rr*0.85;
+      const icon=null; /* icons hata diye — sirf dots wala brain */
+      pts.push({_id:i, bx,by,bz, x:bx, y:by, z:bz,
+        vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5, vz:(Math.random()-0.5)*0.5,
+        r:icon?3.5:1+Math.random()*2.0, ph:Math.random()*Math.PI*2, hue:195+Math.random()*25,
+        icon:icon, sx:0, sy:0, sd:0, ss:1});
+    }
+  }
+  function resize(){
+    const r=cv.parentElement.getBoundingClientRect(), DPR=Math.min(devicePixelRatio||1,2);
+    W=r.width; H=r.height; CX=W/2; CY=H/2; R=Math.min(W,H)*0.38;
+    cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+    seedBrain();
+  }
+  addEventListener('resize',resize);
+  let rotX=0.35, rotY=0, rotVX=0, rotVY=0, pDown=false, lastPX=0, lastPY=0, dragDist=0;
+  cv.addEventListener('pointerdown',e=>{ pDown=true; dragDist=0; lastPX=e.clientX; lastPY=e.clientY; rotVX=rotVY=0; });
+  addEventListener('pointermove',e=>{ if(!pDown) return; const dx=e.clientX-lastPX, dy=e.clientY-lastPY;
+    dragDist+=Math.abs(dx)+Math.abs(dy);
+    rotY+=dx*.006; rotX=Math.max(-1.2,Math.min(1.2,rotX+dy*.006)); rotVY=dx*.006; rotVX=dy*.006; lastPX=e.clientX; lastPY=e.clientY; });
+  addEventListener('pointerup',()=>pDown=false);
+  let selIcon=null, lineAnim=0, t=0;
+  function projectAll(){
+    const cosX=Math.cos(rotX), sinX=Math.sin(rotX), cosY=Math.cos(rotY), sinY=Math.sin(rotY);
+    for(const p of pts){
+      const x1=p.x*cosY+p.z*sinY, z1=-p.x*sinY+p.z*cosY;
+      const y2=p.y*cosX-z1*sinX, z2=p.y*sinX+z1*cosX;
+      const s=FOV/(FOV+z2);
+      p.sx=CX+x1*s; p.sy=CY+y2*s; p.sd=z2; p.ss=s;
+    }
+  }
+  function frame(){ t+=.016;
+    if(!pDown){ rotY+=.0032+rotVY; rotX+=rotVX; rotVY*=.95; rotVX*=.95; rotX=Math.max(-1.2,Math.min(1.2,rotX)); }
+    for(const p of pts){ p.x+=p.vx*.12; p.y+=p.vy*.12; p.z+=p.vz*.12;
+      p.vx+=(p.bx-p.x)*.002; p.vy+=(p.by-p.y)*.002; p.vz+=(p.bz-p.z)*.002; }
+    projectAll();
+    const E=0.3+0.12*Math.sin(t*1.4);
+    ctx.clearRect(0,0,W,H);
+    /* core glow */
+    const coreR=R*1.05, ci=0.35+E*0.5;
+    const cg=ctx.createRadialGradient(CX,CY,0,CX,CY,coreR*1.6);
+    cg.addColorStop(0,'rgba(140,220,255,'+ci+')');
+    cg.addColorStop(0.5,'rgba(70,150,255,'+(ci*0.45)+')');
+    cg.addColorStop(1,'rgba(40,100,255,0)');
+    ctx.fillStyle=cg; ctx.beginPath(); ctx.arc(CX,CY,coreR*1.6,0,7); ctx.fill();
+    /* particles, back to front */
+    const sorted=[...pts].sort((a,b)=>a.sd-b.sd);
+    for(const p of sorted){
+      const depthF=(p.sd/(R*0.9)*0.5+0.5);
+      const tw=0.6+0.4*Math.sin(t*3+p.ph*3);
+      const glow=(0.5+E*1.6)*tw;
+      const pr=p.r*p.ss*(0.55+0.75*depthF)*(1+E*0.5);
+      if(p.icon){
+        const fs=Math.max(12, pr*5.5*(0.65+0.35*depthF));
+        ctx.font=fs+'px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.globalAlpha=0.65+0.35*depthF;
+        ctx.shadowColor='rgba(127,212,255,.9)'; ctx.shadowBlur=12;
+        ctx.fillStyle='rgba(4,10,22,.75)';
+        ctx.beginPath(); ctx.arc(p.sx,p.sy,fs*0.72,0,7); ctx.fill();
+        ctx.fillText(p.icon,p.sx,p.sy);
+        ctx.globalAlpha=1; ctx.shadowBlur=0;
+      } else {
+        ctx.fillStyle='hsla('+p.hue+',100%,'+(70+E*20)+'%,'+((0.25+0.75*depthF)*(0.55+0.45*tw)).toFixed(3)+')';
+        ctx.shadowColor='hsla('+p.hue+',100%,65%,1)';
+        ctx.shadowBlur=(4+glow*14)*(0.4+0.6*depthF);
+        ctx.beginPath(); ctx.arc(p.sx,p.sy,Math.max(0.4,pr),0,7); ctx.fill();
+      }
+    }
+    ctx.shadowBlur=0;
+    /* animated line to selected icon */
+    if(selIcon){
+      lineAnim=Math.min(1,lineAnim+0.04);
+      const ex=selIcon.sx, ey=selIcon.sy;
+      const lx=CX+(ex-CX)*lineAnim, ly=CY+(ey-CY)*lineAnim;
+      const lg=ctx.createLinearGradient(CX,CY,ex,ey);
+      lg.addColorStop(0,'rgba(127,212,255,0)'); lg.addColorStop(1,'rgba(127,212,255,.9)');
+      ctx.strokeStyle=lg; ctx.lineWidth=2.5;
+      ctx.shadowColor='#7fd4ff'; ctx.shadowBlur=12;
+      ctx.beginPath(); ctx.moveTo(CX,CY); ctx.lineTo(lx,ly); ctx.stroke();
+      ctx.shadowBlur=0;
+      if(lineAnim>=1){
+        const pp=(t*1.2)%1;
+        ctx.fillStyle='#7fd4ff'; ctx.shadowColor='#7fd4ff'; ctx.shadowBlur=14;
+        ctx.beginPath(); ctx.arc(CX+(ex-CX)*pp, CY+(ey-CY)*pp, 3.5, 0, 7); ctx.fill();
+        ctx.shadowBlur=0;
+      }
+      ctx.strokeStyle='rgba(127,212,255,.9)'; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.arc(ex,ey,20+Math.sin(t*5)*3,0,7); ctx.stroke();
+    }
+    requestAnimationFrame(frame);
+  }
+  /* ---------- agent tap popup ---------- */
+  const AGENT_INFO={
+    '📧':['Gmail Agent','Reads, drafts & sends emails on your approval','LIVE'],
+    '💬':['WhatsApp Agent','Direct line to clients & groups','LIVE'],
+    '📘':['Facebook Agent','Manages luxury life page + posts','LIVE'],
+    '📸':['Instagram Agent','Posts reels & stories daily','LIVE'],
+    '🌤️':['Weather Agent','Dubai weather updates & alerts','LIVE'],
+    '📺':['YouTube Agent','Channel analytics & ideas','LIVE'],
+    '📰':['News Agent','Latest headlines that matter','LIVE'],
+    '🎵':['Spotify Agent','Music & focus playlists','IDLE'],
+    '📅':['Calendar Agent','Reminders & scheduling','LIVE'],
+    '🗺️':['Maps Agent','Places, routes & nearby','IDLE'],
+    '💾':['Drive Agent','Files & documents hub','LIVE'],
+    '🐦':['X Agent','Trends & quick posts','IDLE'],
+    '💼':['LinkedIn Agent','Professional network','IDLE'],
+    '🎭':['TikTok Agent','Short video ideas','IDLE'],
+    '🔍':['Search Agent','Web answers instantly','LIVE'],
+    '⏰':['Reminder Agent','Never miss a thing','LIVE'],
+    '📞':['Calls Agent','Call history & dial','IDLE'],
+    '💳':['Payments Agent','Track spending & Tabby','LIVE'],
+    '🏦':['Bank Agent','Balance & transfers','IDLE'],
+    '🛒':['Shopping Agent','Best deals finder','IDLE'],
+    '📊':['Analytics Agent','Page stats & growth','LIVE'],
+    '🎮':['Games Agent','Fun breaks & puzzles','IDLE']
+  };
+  const agentPop=document.getElementById('agent-pop');
+  cv.addEventListener('click',e=>{
+    if(dragDist>6) return;
+    const rect=cv.getBoundingClientRect();
+    const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    let best=null, bd=1e9;
+    for(const p of pts){ if(!p.icon) continue;
+      const d=Math.hypot(p.sx-mx,p.sy-my);
+      if(d<26 && d<bd){ bd=d; best=p; } }
+    if(best){
+      selIcon=best; lineAnim=0;
+      const info=AGENT_INFO[best.icon]||[best.icon+' Agent','Smart assistant module','LIVE'];
+      document.getElementById('agent-icon').textContent=best.icon;
+      document.getElementById('agent-name').textContent=info[0];
+      document.getElementById('agent-desc').textContent=info[1];
+      const st=document.getElementById('agent-status');
+      st.textContent='● '+info[2];
+      st.style.color=info[2]==='LIVE'?'#4ade80':'#4a7ba6';
+      agentPop.style.left=Math.min(Math.max(best.sx+18,8),Math.max(8,W-230))+'px';
+      agentPop.style.top=Math.min(Math.max(best.sy-40,8),Math.max(8,H-150))+'px';
+      agentPop.classList.add('show');
+    } else { agentPop.classList.remove('show'); selIcon=null; }
+  });
+  document.getElementById('agent-x').addEventListener('click',()=>{ agentPop.classList.remove('show'); selIcon=null; });
+  resize(); frame();
+})();
+</script>
+<script>
+/* sidebar nav — click par active */
+document.querySelectorAll('#sidebar .ni').forEach(n=>n.addEventListener('click',()=>{
+  document.querySelectorAll('#sidebar .ni').forEach(x=>x.classList.remove('on'));
+  n.classList.add('on');
+}));
+</script>
+<script>
+/* chatbox */
+const chatlog=document.getElementById('chatlog'), chatin=document.getElementById('chatin');
+function nowT(){ const d=new Date(); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
+function addMsg(who,txt){ const d=document.createElement('div'); d.className='msg '+who;
+  d.innerHTML=txt.replace(/</g,'&lt;')+'<span class="tm">'+nowT()+'</span>';
+  chatlog.appendChild(d); chatlog.scrollTop=chatlog.scrollHeight; }
+function sendChat(){ const v=chatin.value.trim(); if(!v) return;
+  addMsg('u',v); chatin.value='';
+  setTimeout(()=>addMsg('a','Samajh gaya jani! 👍'),650); }
+document.getElementById('chatsend').addEventListener('click',sendChat);
+chatin.addEventListener('keydown',e=>{ if(e.key==='Enter') sendChat(); });
+</script>
+</body>
+</html>
