@@ -30,17 +30,25 @@
 
   /* ---------- middle column: boxes 1, 2, 3 ---------- */
   #midSpace{ flex:2.8; display:flex; flex-direction:column; gap:22px; min-width:0; }
-  #midTop{ flex:0 0 44%; display:flex; gap:22px; min-height:0; }
+  #midTop{ flex:0 0 44%; display:flex; gap:22px; min-height:0; position:relative; }
+  /* box 2 se brain tak jaati lakeerein (gap ke upar se) */
+  .wireSvg{ position:absolute; inset:0; width:100%; height:100%; z-index:6; pointer-events:none; }
+  #brainDot{ position:absolute; left:75.5%; top:50%; width:14px; height:14px; margin:-7px 0 0 -7px;
+    border-radius:50%; background:#cfeaff; z-index:7; pointer-events:none;
+    box-shadow:0 0 18px 6px rgba(127,212,255,.75), 0 0 46px 20px rgba(87,182,255,.35); }
+  #brainDot::after{ content:''; position:absolute; inset:-9px; border-radius:50%;
+    border:1.5px solid rgba(127,212,255,.5); }
   .mbox{ flex:1; overflow:hidden; }
 
   /* box 2: neural panel */
   #box2{ display:flex; align-items:center; padding:18px 14px; }
   #box2 .btns{ display:flex; flex-direction:column; gap:12px; z-index:2; }
   .nbtn{ display:flex; align-items:center; gap:9px; padding:9px 16px 9px 11px; border-radius:12px;
-    background:rgba(10,10,14,.55); border:1px solid rgba(255,255,255,.20);
-    color:#e8e8e8; font-size:13.5px; letter-spacing:.4px; white-space:nowrap; }
+    background:rgba(8,24,48,.60); border:1px solid rgba(127,212,255,.38);
+    color:#e2f1ff; font-size:13.5px; letter-spacing:.4px; white-space:nowrap;
+    box-shadow:0 0 14px rgba(87,182,255,.12); }
   .nbtn .ic{ width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center;
-    background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16); font-size:12px; }
+    background:rgba(127,212,255,.16); border:1px solid rgba(127,212,255,.35); font-size:12px; color:#a8dcff; }
   #box2 svg.wires{ position:absolute; inset:0; width:100%; height:100%; z-index:1; }
 
   /* box 1: brain */
@@ -82,14 +90,6 @@
           <div class="nbtn"><span class="ic">♡</span>Soul</div>
           <div class="nbtn"><span class="ic">⚙</span>Settings</div>
         </div>
-        <svg class="wires" viewBox="0 0 300 200" preserveAspectRatio="none">
-          <path d="M118,38 C 190,38 210,100 282,100" stroke="#ffffff" stroke-width="2" fill="none" opacity=".85"/>
-          <path d="M112,84 C 180,84 215,100 282,100" stroke="#c9c9c9" stroke-width="2" fill="none" opacity=".8"/>
-          <path d="M104,130 C 175,130 215,100 282,100" stroke="#9a9a9a" stroke-width="2" fill="none" opacity=".8"/>
-          <path d="M122,172 C 195,172 215,100 282,100" stroke="#6f6f6f" stroke-width="2" fill="none" opacity=".75"/>
-          <circle cx="284" cy="100" r="5" fill="#fff"/>
-          <circle cx="284" cy="100" r="11" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
-        </svg>
       </div>
       <!-- 1: brain -->
       <div class="glass mbox" id="box1">
@@ -101,6 +101,20 @@
           <div id="agent-status"></div>
         </div>
       </div>
+
+      <svg class="wireSvg" viewBox="0 0 1000 400" preserveAspectRatio="none">
+        <g fill="none" stroke-linecap="round">
+          <path d="M185,100 C 430,100 540,200 748,200" stroke="#57b6ff" stroke-width="7" opacity=".14"/>
+          <path d="M185,167 C 430,167 540,200 748,200" stroke="#57b6ff" stroke-width="7" opacity=".14"/>
+          <path d="M185,233 C 430,233 540,200 748,200" stroke="#57b6ff" stroke-width="7" opacity=".14"/>
+          <path d="M185,300 C 430,300 540,200 748,200" stroke="#57b6ff" stroke-width="7" opacity=".14"/>
+          <path d="M185,100 C 430,100 540,200 748,200" stroke="#8fd8ff" stroke-width="2.4" opacity=".95"/>
+          <path d="M185,167 C 430,167 540,200 748,200" stroke="#57b6ff" stroke-width="2.4" opacity=".95"/>
+          <path d="M185,233 C 430,233 540,200 748,200" stroke="#2f7fe0" stroke-width="2.4" opacity=".95"/>
+          <path d="M185,300 C 430,300 540,200 748,200" stroke="#cfeaff" stroke-width="2.4" opacity=".9"/>
+        </g>
+      </svg>
+      <div id="brainDot"></div>
     </div>
     <!-- 3: office -->
     <div class="glass" id="box3">
