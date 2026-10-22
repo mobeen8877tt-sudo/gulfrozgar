@@ -404,6 +404,24 @@
   .glowdot{ filter:drop-shadow(0 0 6px rgba(127,212,255,.95)); }
   @media (max-width:1280px){ .aname{ font-size:8.5px; } #voicebar .vlab{ display:none; } }
 
+  /* ============ FIX 2026-10-22 (jimmi) — layout saaf, koi overlap nahi ============
+     Masla: officerow ki min-height 430px + topbar ki wajah se darmiyan wala
+     hissa (brain stage / neural panel / chat) sikud kar aik patti ban gaya tha
+     aur us ka content office ke upar ghus gaya tha.
+     Hal: chhoti/ darmiyani screen par page scroll hoga lekin har hissa apni
+     jagah saaf nazar ayega; neural panel compact; floor kam tedha. */
+  .neu-wrap{ height:252px; }
+  .neu-btn{ padding:8px 10px; }
+  .iso-floor{ width:168%; height:178%; top:64%;
+    transform:translate(-50%,-50%) rotateX(51deg) rotate(45deg); }
+  #chatdock{ max-height:100%; }
+  @media (max-height:900px){
+    #app{ height:auto; min-height:100vh; }
+    #main{ overflow:visible; }
+    #workspace{ flex:none; height:410px; min-height:410px; }
+    #officerow{ flex:none; height:480px; min-height:480px; }
+  }
+
 </style>
 </head>
 <body>
@@ -968,7 +986,7 @@ const TEAM=[
  {id:'data',     name:'Data',     icon:'db',    shirt:'#155e6b', hair:'#0e1418', skin:'#f2c49b', hs:4},
  {id:'helper',   name:'Helper',   icon:'star',  shirt:'#6b5a1f', hair:'#2e2015', skin:'#8c5a3a', hs:0}
 ];
-const COLX=[36.5,52,67.5,83], ROWY=[6,27,48,68], ROWS=[.8,.88,.96,1.04];
+const COLX=[36.5,52,67.5,83], ROWY=[5,26,47,66], ROWS=[.8,.88,.95,1.0];
 
 function hairSVG(a){
  const h=a.hair;
