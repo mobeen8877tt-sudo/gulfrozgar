@@ -33,13 +33,13 @@
   #midTop{ flex:0 0 44%; display:flex; gap:22px; min-height:0; position:relative; }
   /* box 2 se brain tak jaati lakeerein (gap ke upar se) */
   .wireSvg{ position:absolute; inset:0; width:100%; height:100%; z-index:6; pointer-events:none; }
-  /* dono boxes ko sirf center me jodne wali patti — lines is ke andar se guzarti hain */
-  #bridge{ position:absolute; left:calc(50% - 11px); top:50%; width:22px; height:104px;
-    transform:translateY(-50%); z-index:5; pointer-events:none;
-    background:rgba(255,255,255,.06);
+  /* drawing wala connector box — dono boxes is se attach, lines is ke andar se guzarti hain */
+  #joinBox{ position:absolute; left:50%; top:50%; width:64px; height:44px;
+    transform:translate(-50%,-50%); z-index:7; pointer-events:none; border-radius:12px;
+    background:rgba(20,20,26,.55);
     -webkit-backdrop-filter:blur(18px) saturate(150%); backdrop-filter:blur(18px) saturate(150%);
-    border-top:1px solid rgba(255,255,255,.22); border-bottom:1px solid rgba(255,255,255,.22);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.25); }
+    border:1px solid rgba(255,255,255,.38);
+    box-shadow:0 14px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.28); }
   #brainDot{ position:absolute; left:75.5%; top:50%; width:14px; height:14px; margin:-7px 0 0 -7px;
     border-radius:50%; background:#cfeaff; z-index:7; pointer-events:none;
     box-shadow:0 0 18px 6px rgba(127,212,255,.75), 0 0 46px 20px rgba(87,182,255,.35); }
@@ -109,7 +109,6 @@
         </div>
       </div>
 
-      <div id="bridge"></div>
       <svg class="wireSvg" viewBox="0 0 1000 400" preserveAspectRatio="none">
         <g fill="none" stroke-linecap="round">
           <path d="M185,100 C 430,100 540,200 748,200" stroke="#57b6ff" stroke-width="7" opacity=".14"/>
@@ -122,6 +121,7 @@
           <path d="M185,300 C 430,300 540,200 748,200" stroke="#cfeaff" stroke-width="2.4" opacity=".9"/>
         </g>
       </svg>
+      <div id="joinBox"></div>
       <div id="brainDot"></div>
     </div>
     <!-- 3: office -->
