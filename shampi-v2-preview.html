@@ -125,32 +125,81 @@
   <div class="glass" id="chatPanel"><div class="lbl">CHATBOX</div></div>
 
 <script>
-/* static particle brain (no motion) */
+/* ===== APNA WALA BRAIN — 3D particle brain, animated, har taraf rotate ===== */
 (function(){
   const cv=document.getElementById('brainCanvas'), ctx=cv.getContext('2d');
-  function draw(){
+  let W=0,H=0,CX=0,CY=0,R=0;
+  function resize(){
     const r=cv.parentElement.getBoundingClientRect();
-    const W=r.width, H=r.height, DPR=Math.min(devicePixelRatio||1,2);
+    const DPR=Math.min(devicePixelRatio||1,2);
+    W=r.width; H=r.height; CX=W/2; CY=H/2; R=Math.min(W,H)*0.16;
     cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
-    ctx.clearRect(0,0,W,H);
-    const cx=W/2, cy=H/2, rx=Math.min(W,H)*0.30, ry=Math.min(W,H)*0.36;
-    let seed=42; const rnd=()=>{ seed=(seed*16807)%2147483647; return seed/2147483647; };
-    for(let i=0;i<950;i++){
-      const side=rnd()<0.5?-1:1;
-      const a=rnd()*Math.PI*2, rr=Math.pow(rnd(),0.55);
-      const x=cx + side*rx*0.52 + Math.cos(a)*rr*rx*0.52;
-      const y=cy + Math.sin(a)*rr*ry*(0.9+0.15*Math.cos(x*0.05));
-      const s=0.6+rnd()*1.9, al=0.25+rnd()*0.75;
-      ctx.beginPath(); ctx.arc(x,y,s,0,7);
-      ctx.fillStyle='rgba(255,255,255,'+al.toFixed(2)+')';
-      ctx.shadowColor='rgba(255,255,255,.8)'; ctx.shadowBlur=s*3;
-      ctx.fill(); ctx.shadowBlur=0;
-    }
-    ctx.beginPath();
-    ctx.ellipse(cx,cy,rx*1.12,ry*1.12,0,0,7);
-    ctx.strokeStyle='rgba(255,255,255,.14)'; ctx.lineWidth=1; ctx.stroke();
+    buildStars(); buildRings(); seedPts();
   }
-  draw(); addEventListener('resize',draw);
+  addEventListener('resize',resize);
+  /* background stars */
+  let stars=[];
+  function buildStars(){ stars=[]; const n=Math.floor(W*H/9000);
+    for(let i=0;i<n;i++) stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+0.3,tw:Math.random()*6.28,sp:.4+Math.random()*1.2}); }
+  /* rings of nodes around the brain */
+  let rings=[];
+  function buildRings(){ rings=[]; const RR=Math.min(W,H), ring1=RR*0.30, ring2=RR*0.42;
+    for(let i=0;i<14;i++){ const a=i/14*Math.PI*2-Math.PI/2;
+      rings.push({a,r:ring1,c:'#7fd4ff',s:5,ph:Math.random()*6.28}); }
+    for(let i=0;i<24;i++){ const a=i/24*Math.PI*2-Math.PI/2+0.13;
+      rings.push({a,r:ring2,c:i%3?'#7fd4ff':'#eaf3ff',s:4,ph:Math.random()*6.28}); } }
+  /* brain particles */
+  const P_COUNT=340, FOV=900; let pts=[];
+  function seedPts(){ pts=[];
+    for(let i=0;i<P_COUNT;i++){ const th=Math.random()*6.283, ph=Math.acos(2*Math.random()-1),
+      rr=Math.pow(Math.random(),.45)*R;
+      const bx=Math.sin(ph)*Math.cos(th)*rr*1.15, by=Math.sin(ph)*Math.sin(th)*rr*.75, bz=Math.cos(ph)*rr*.85;
+      pts.push({x:bx,y:by,z:bz, r:1+Math.random()*2, ph:Math.random()*6.283, hue:195+Math.random()*25, sx:0, sy:0, ss:1}); } }
+  /* rotation + drag */
+  let rotX=.35, rotY=0, rotVX=0, rotVY=0, pDown=false, lastPX=0, lastPY=0;
+  cv.addEventListener('pointerdown',e=>{ pDown=true; lastPX=e.clientX; lastPY=e.clientY; rotVX=rotVY=0; });
+  addEventListener('pointermove',e=>{ if(!pDown) return; const dx=e.clientX-lastPX, dy=e.clientY-lastPY;
+    rotY+=dx*.006; rotX=Math.max(-1.2,Math.min(1.2,rotX+dy*.006)); rotVY=dx*.006; rotVX=dy*.006; lastPX=e.clientX; lastPY=e.clientY; });
+  addEventListener('pointerup',()=>pDown=false);
+  let t=0;
+  function frame(){ t+=.016;
+    if(!pDown){ rotY+=.0035+rotVY; rotX+=rotVX; rotVY*=.95; rotVX*=.95; rotX=Math.max(-1.2,Math.min(1.2,rotX)); }
+    ctx.clearRect(0,0,W,H);
+    /* stars */
+    for(const st of stars){ const tw=.4+.6*Math.abs(Math.sin(t*st.sp+st.tw));
+      ctx.globalAlpha=tw*.8; ctx.fillStyle='#bcd9ff';
+      ctx.beginPath(); ctx.arc(st.x,st.y,st.r,0,7); ctx.fill(); }
+    ctx.globalAlpha=1;
+    /* project brain points */
+    const cx=Math.cos(rotX), sx=Math.sin(rotX), cy=Math.cos(rotY), sy=Math.sin(rotY);
+    for(const p of pts){ const x1=p.x*cy+p.z*sy, z1=-p.x*sy+p.z*cy, y2=p.y*cx-z1*sx, z2=p.y*sx+z1*cx,
+      s=FOV/(FOV+z2); p.sx=CX+x1*s; p.sy=CY+y2*s; p.ss=s; }
+    /* core glow */
+    const g=ctx.createRadialGradient(CX,CY,0,CX,CY,R*2.1);
+    g.addColorStop(0,'rgba(80,160,255,.20)'); g.addColorStop(1,'rgba(80,160,255,0)');
+    ctx.fillStyle=g; ctx.fillRect(CX-R*2.2,CY-R*2.2,R*4.4,R*4.4);
+    /* particles */
+    for(const p of pts){ const tw=.65+.35*Math.sin(t*2+p.ph);
+      ctx.globalAlpha=Math.max(.12,Math.min(1,p.ss*.85))*tw;
+      ctx.fillStyle='hsl('+p.hue+',95%,'+(62+18*tw)+'%)';
+      ctx.shadowColor='rgba(110,190,255,.9)'; ctx.shadowBlur=7*p.ss;
+      ctx.beginPath(); ctx.arc(p.sx,p.sy,p.r*p.ss,0,7); ctx.fill(); }
+    ctx.shadowBlur=0; ctx.globalAlpha=1;
+    /* rings */
+    const ringRot=t*.05;
+    for(const rn of rings){ const a=rn.a+ringRot,
+      x=CX+Math.cos(a)*rn.r, y=CY+Math.sin(a)*rn.r, tw=.6+.4*Math.sin(t*2+rn.ph);
+      ctx.strokeStyle=rn.c+'44'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(CX,CY); ctx.lineTo(x,y); ctx.stroke();
+      ctx.fillStyle=rn.c; ctx.globalAlpha=.5+.5*tw;
+      ctx.shadowColor=rn.c; ctx.shadowBlur=8;
+      ctx.beginPath(); ctx.arc(x,y,rn.s,0,7); ctx.fill();
+      ctx.shadowBlur=0; ctx.globalAlpha=1;
+      ctx.strokeStyle=rn.c+'88'; ctx.lineWidth=1.2;
+      ctx.beginPath(); ctx.arc(x,y,rn.s+3,0,7); ctx.stroke(); }
+    requestAnimationFrame(frame);
+  }
+  resize(); frame();
 })();
 </script>
 </body>
