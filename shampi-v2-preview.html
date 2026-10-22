@@ -10,15 +10,15 @@
   body{ background:#04041a; overflow:hidden; font-family:'Segoe UI', Arial, sans-serif; position:relative; }
 
   /* ---------- colorful blobs (background) ---------- */
-  .blob{ position:absolute; filter:blur(70px); opacity:.9; }
+  .blob{ position:absolute; filter:blur(80px) saturate(.8); opacity:.6; }
   .blob1{ width:58vmax; height:58vmax; left:-14vmax; top:-20vmax; border-radius:50%;
-    background:radial-gradient(circle at 30% 30%, #ff5da2 0%, #a855f7 38%, #2563eb 68%, #06b6d4 100%);
+    background:radial-gradient(circle at 30% 30%, #ff9ec7 0%, #c4a1f5 38%, #7aa5f0 68%, #7dd8ef 100%);
     animation:drift1 26s ease-in-out infinite alternate; }
   .blob2{ width:52vmax; height:52vmax; right:-16vmax; bottom:-18vmax; border-radius:46% 54% 60% 40%/50% 46% 54% 50%;
-    background:radial-gradient(circle at 65% 65%, #ff2fb3 0%, #a855f7 45%, #06b6d4 100%);
+    background:radial-gradient(circle at 65% 65%, #ff8fd8 0%, #c4a1f5 45%, #7dd8ef 100%);
     animation:drift2 30s ease-in-out infinite alternate; }
   .blob3{ width:30vmax; height:30vmax; left:-6vmax; bottom:-12vmax; border-radius:50%;
-    background:radial-gradient(circle at 50% 40%, #ff7ac2 0%, #e0218a 60%, rgba(224,33,138,0) 100%);
+    background:radial-gradient(circle at 50% 40%, #ffb1da 0%, #f06bb0 60%, rgba(240,107,176,0) 100%);
     animation:drift1 22s ease-in-out infinite alternate-reverse; }
   @keyframes drift1{ from{ transform:translate(0,0) scale(1); } to{ transform:translate(3.5vmax,2.5vmax) scale(1.07); } }
   @keyframes drift2{ from{ transform:translate(0,0) scale(1.05); } to{ transform:translate(-3vmax,-2vmax) scale(1); } }
