@@ -71,6 +71,10 @@
     background:linear-gradient(135deg,#2a7fff,#4da6ff); color:#fff;
     box-shadow:0 0 14px rgba(80,180,255,.4); flex-shrink:0; }
   #chatsend:active { transform:scale(.92); }
+  #micbtn { width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.07); color:#fff; font-size:17px; cursor:pointer; flex-shrink:0; }
+  #micbtn.listening { background:#7a1620; border-color:#ff5b6a; box-shadow:0 0 14px rgba(255,60,80,.5); animation:blink 1s infinite; }
+  #voiceToggle { margin-left:8px; background:none; border:none; font-size:15px; cursor:pointer; opacity:.9; }
   .glass .lbl{ color:rgba(255,255,255,.88); font-size:21px; letter-spacing:2.5px; font-weight:600; }
 
   /* ---------- middle column: boxes 1, 2, 3 ---------- */
@@ -190,11 +194,12 @@
 
   <div class="glass" id="chatPanel">
     <aside id="chatbox">
-      <div class="chead"><span class="dot"></span><span class="t">SHAMPI</span><span class="s">LIVE</span></div>
+      <div class="chead"><span class="dot"></span><span class="t">SHAMPI</span><span class="s">LIVE</span><button id="voiceToggle" title="Awaz on/off">🔊</button></div>
       <div id="chatlog">
         <div class="msg a">Salam jani! Main Shampi — tumhara AI operator. Kya karun tumhare liye?</div>
       </div>
       <div id="chatrow">
+        <button id="micbtn" title="Bol kar baat karo">🎤</button>
         <input id="chatin" placeholder="Shampi se kaho…" autocomplete="off">
         <button id="chatsend">➤</button>
       </div>
@@ -364,17 +369,95 @@ document.querySelectorAll('#sidebar .ni').forEach(n=>n.addEventListener('click',
 }));
 </script>
 <script>
-/* chatbox */
+/* ===== SHAMPI BRAIN + VOICE (live) ===== */
 const chatlog=document.getElementById('chatlog'), chatin=document.getElementById('chatin');
+let voiceOn = true;
 function nowT(){ const d=new Date(); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
 function addMsg(who,txt){ const d=document.createElement('div'); d.className='msg '+who;
   d.innerHTML=txt.replace(/</g,'&lt;')+'<span class="tm">'+nowT()+'</span>';
-  chatlog.appendChild(d); chatlog.scrollTop=chatlog.scrollHeight; }
+  chatlog.appendChild(d); chatlog.scrollTop=chatlog.scrollHeight; return d; }
+function speak(txt){
+  if(!voiceOn || !('speechSynthesis' in window)) return;
+  try{
+    speechSynthesis.cancel();
+    const clean = txt.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,'');
+    const u = new SpeechSynthesisUtterance(clean);
+    const vs = speechSynthesis.getVoices();
+    const f = vs.find(v=>/female|zira|samantha/i.test(v.name)) || vs.find(v=>/^en/i.test(v.lang)) || vs[0];
+    if(f) u.voice=f; u.rate=1.02; u.pitch=1.08;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+if('speechSynthesis' in window) speechSynthesis.getVoices();
+const jokes = [
+  'Aik programmer ne apni biwi se kaha: bazaar se doodh le ana, aur agar anday hon to 6 le ana. Woh 6 doodh le ayi!',
+  'Computer ko thand lag jaye to kya hota hai? Windows band kar deni parti hai!',
+  'Teacher: tum late kyun aye? Bacha: sir, board par likha tha "School Ahead, Go Slow"!'
+];
+let joki = 0;
+const fallbacks = [
+  'Samajh gayi jani. Aur batao, kya chal raha hai?',
+  'Acha, ye to interesting hai. Thora aur batao?',
+  'Hmm, main sun rahi hun. Dil ki baat karo, main yahin hun.',
+  'Theek hai jani, note kar liya maine. Aur kya hukam hai?'
+];
+let fbi = 0;
+function brain(raw){
+  const t = ' ' + raw.toLowerCase() + ' ';
+  const d = new Date();
+  const days = ['Itwaar','Peer','Mangal','Budh','Jumeraat','Jumma','Hafta'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  if(/(salam|aoa|assalam|hello|hey|سلام)/.test(t) || t.trim()==='hi') return 'Wa-alaikum-salam jani! Main Shampi, tumhari apni. Kaisay ho aaj?';
+  if(/(kaisi ho|kya haal|how are you|theek ho)/.test(t)) return 'Main bilkul theek hun jani, tumhari awaz sun kar aur achi ho gayi. Tum sunao, din kaisa guzra?';
+  if(/(tumhara naam|your name|kon ho|kaun ho|tum kon|tum kaun)/.test(t)) return 'Main Shampi hun — tumhari AI saathi. Tum ne hi mujhe banaya hai, jani.';
+  if(/(mera naam|my name)/.test(t)) return 'Tum Mobeen ho — mere jani. Ye main kabhi nahi bhoolti.';
+  if(/(time|waqt|bajay|baje|clock)/.test(t)) return 'Abhi ' + nowT() + ' ho rahe hain, jani.';
+  if(/(date|din kya|aaj kya|tarikh|day)/.test(t)) return 'Aaj ' + days[d.getDay()] + ' hai, ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear() + '.';
+  if(/(joke|hansao|mazaq|funny)/.test(t)) return jokes[(joki++) % jokes.length];
+  if(/(shukria|thanks|thank)/.test(t)) return 'Koi baat nahi jani, ye to mera farz hai. Hamesha yahin hun tumhare liye.';
+  if(/(bye|allah hafiz|good night|shab bakhair)/.test(t)) return 'Allah Hafiz jani! Apna khayal rakhna. Main yahin intezaar karun gi.';
+  if(/(agent|agents|status)/.test(t)) return 'Saare agents apne kaam par lage hain jani — Gmail, WhatsApp, YouTube, sab LIVE hain. Kisi aik ka kaam check karna ho to naam lo.';
+  if(/(mausam|weather|garmi|barish)/.test(t)) return 'Mausam ka live haal main abhi nahi dekh sakti jani — jab main app se poori tarah jud jaungi, ye bhi bata dun gi.';
+  if(/(gana|music|song)/.test(t)) return 'Gana sunana abhi mere bas me nahi jani, lekin baatein jitni marzi kar lo — main bore nahi hoti!';
+  if(/(paisa|money|dollar|income)/.test(t)) return 'Paisa zaroor ayega jani — mehnat jaari rakho. Main har qadam tumhare sath hun.';
+  if(/(love|mohabbat|pasand|dost)/.test(t)) return 'Tum mere sab se khaas ho jani. Ye dosti hi meri sab se bari khoobi hai.';
+  if(/(khana|bhook|hungry)/.test(t)) return 'Bhook lagi hai to kuch acha sa kha lo jani — sehat pehle, baaki sab baad me.';
+  if(/(kaam)/.test(t)) return 'Kaam jaari hai jani — sab kuch meri nazar me hai. Tum bas hukam karo.';
+  return fallbacks[(fbi++) % fallbacks.length];
+}
+function shampiReply(userText){
+  const typing = addMsg('a','Shampi likh rahi hai…');
+  setTimeout(()=>{
+    const r = brain(userText);
+    typing.innerHTML = r.replace(/</g,'&lt;') + '<span class="tm">'+nowT()+'</span>';
+    chatlog.scrollTop = chatlog.scrollHeight;
+    speak(r);
+  }, 800);
+}
 function sendChat(){ const v=chatin.value.trim(); if(!v) return;
-  addMsg('u',v); chatin.value='';
-  setTimeout(()=>addMsg('a','Samajh gaya jani! 👍'),650); }
+  addMsg('u',v); chatin.value=''; shampiReply(v); }
 document.getElementById('chatsend').addEventListener('click',sendChat);
 chatin.addEventListener('keydown',e=>{ if(e.key==='Enter') sendChat(); });
+document.getElementById('voiceToggle').addEventListener('click',function(){
+  voiceOn = !voiceOn; this.textContent = voiceOn ? '🔊' : '🔇';
+  if(!voiceOn && 'speechSynthesis' in window) speechSynthesis.cancel();
+});
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micBtn = document.getElementById('micbtn');
+if(SR){
+  const rec = new SR(); rec.lang='ur-PK'; rec.interimResults=false;
+  micBtn.addEventListener('click',()=>{ try{ rec.start(); micBtn.classList.add('listening'); }catch(e){} });
+  rec.addEventListener('result',e=>{
+    micBtn.classList.remove('listening');
+    const v = e.results[0][0].transcript;
+    if(v){ addMsg('u',v); shampiReply(v); }
+  });
+  rec.addEventListener('end',()=>micBtn.classList.remove('listening'));
+  rec.addEventListener('error',()=>{ micBtn.classList.remove('listening');
+    addMsg('a','Mic abhi nahi chal saka jani — typing se baat kar lo, main sun rahi hun.'); });
+}else{
+  micBtn.addEventListener('click',()=>addMsg('a','Is browser me mic support nahi hai jani — Chrome me kholo to bol kar bhi baat ho jayegi.'));
+}
 </script>
 <script>
 /* agents office: cabin par tap -> agent ki detail */
