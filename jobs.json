@@ -1,5 +1,57 @@
 [
   {
+    "id": "bayt-75355731",
+    "title": "Driver",
+    "company": "GALADARI BROTHERS CO. L.L.C",
+    "location": "UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-24",
+    "description": "Company driver opening with Galadari Brothers in the UAE.",
+    "apply_url": "https://www.bayt.com/en/register-j/?jb_id=75355731",
+    "source": "Bayt"
+  },
+  {
+    "id": "nk-231026500719",
+    "title": "Truck Driver",
+    "company": "BVM Transport LLC",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-23",
+    "description": "Truck driver role with BVM Transport in Dubai.",
+    "apply_url": "https://www.naukrigulf.com/truck-driver-jobs-in-dubai-uae-in-bvm-transport-llc-2-to-7-years-n-cd-40005981-jid-231026500719",
+    "source": "NaukriGulf"
+  },
+  {
+    "id": "nk-231026500243",
+    "title": "Technician",
+    "company": "Marriott International",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-23",
+    "description": "General technician opening with Marriott International in Dubai.",
+    "apply_url": "https://www.naukrigulf.com/technician-jobs-in-dubai-uae-in-marriott-international-0-to-5-years-n-cd-10000212-jid-231026500243",
+    "source": "NaukriGulf"
+  },
+  {
+    "id": "nk-231026000142",
+    "title": "Bus Driver",
+    "company": "Bu Haleeba Contracting LLC",
+    "location": "Dubai (Oud Metha), UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-23",
+    "description": "Bus driver opening with a contracting company in Oud Metha, Dubai.",
+    "apply_url": "https://www.naukrigulf.com/bus-driver-jobs-in-dubai-uae-in-bu-haleeba-contracting-llc-2-to-5-years-n-cd-173843-jid-231026000142",
+    "source": "NaukriGulf"
+  },
+  {
     "id": "nk-221026000159",
     "title": "Driver Light",
     "company": "Adnoc",
@@ -62,6 +114,32 @@
     "posted": "2026-10-23",
     "description": "Serve guests at Four Seasons' new Red Sea resort restaurants and outlets.",
     "apply_url": "https://www.gulftalent.com/saudi-arabia/jobs/waiter-waitress-575026",
+    "source": "GulfTalent"
+  },
+  {
+    "id": "gt-operator-wrapping-machine-650070",
+    "title": "Operator – Wrapping Machine",
+    "company": "The Talents Nation",
+    "location": "Al Jubail, Saudi Arabia",
+    "country": "Saudi Arabia",
+    "salary": "SAR 3,000 - 3,500",
+    "type": "Full Time",
+    "posted": "2026-10-23",
+    "description": "Operate wrapping and packing machines for tissue rolls in Jubail; overseas candidates welcome.",
+    "apply_url": "https://www.gulftalent.com/saudi-arabia/jobs/operator-wrapping-machine-650070",
+    "source": "GulfTalent"
+  },
+  {
+    "id": "gt-operator-rewinder-650073",
+    "title": "Operator Rewinder",
+    "company": "RTC-1 Employment Services",
+    "location": "Al Jubail, Saudi Arabia",
+    "country": "Saudi Arabia",
+    "salary": "SAR 3,500 - 4,500",
+    "type": "Full Time",
+    "posted": "2026-10-23",
+    "description": "Run tissue paper rewinding machines at a Jubail factory; housing, transport and flight ticket included.",
+    "apply_url": "https://www.gulftalent.com/saudi-arabia/jobs/operator-rewinder-650073",
     "source": "GulfTalent"
   },
   {
@@ -156,6 +234,71 @@
     "source": "GulfTalent"
   },
   {
+    "id": "bayt-75354432",
+    "title": "Stylist (Room Attendant) - Housekeeping",
+    "company": "W Hotels",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-23",
+    "description": "Housekeeping room attendant (stylist) role at W Hotels in Dubai.",
+    "apply_url": "https://www.bayt.com/en/register-j/?jb_id=75354432",
+    "source": "Bayt"
+  },
+  {
+    "id": "bayt-75353665",
+    "title": "B&F Order Taker - In Room Dining",
+    "company": "W Hotels",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-23",
+    "description": "In-room dining order taker (B&F) at W Hotels in Dubai.",
+    "apply_url": "https://www.bayt.com/en/register-j/?jb_id=75353665",
+    "source": "Bayt"
+  },
+  {
+    "id": "bayt-5498970",
+    "title": "General Repair Technician",
+    "company": "Al Futtaim Group",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-23",
+    "description": "General repair technician for Toyota & Lexus vehicles at Al Futtaim Automotive in Dubai.",
+    "apply_url": "https://www.bayt.com/en/register-j/?jb_id=5498970",
+    "source": "Bayt"
+  },
+  {
+    "id": "bayt-5473932",
+    "title": "Waiter",
+    "company": "Bateel International",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-23",
+    "description": "Waiter opening with Bateel International in Dubai.",
+    "apply_url": "https://www.bayt.com/en/register-j/?jb_id=5473932",
+    "source": "Bayt"
+  },
+  {
+    "id": "nk-221026000160",
+    "title": "Driver Light",
+    "company": "Adnoc",
+    "location": "Dubai / Sharjah / Ajman, UAE",
+    "country": "UAE",
+    "salary": "AED 2,100 - 3,600",
+    "type": "Full Time",
+    "posted": "2026-10-22",
+    "description": "Light driver role with Adnoc across Dubai, Sharjah and Ajman.",
+    "apply_url": "https://www.naukrigulf.com/driver-light-jobs-in-dubai-uae-in-adnoc-1-to-2-years-n-cd-380000-jid-221026000160",
+    "source": "NaukriGulf"
+  },
+  {
     "id": "nk-191026000682",
     "title": "Private Driver & Office Assistant",
     "company": "Correlin FZCO",
@@ -166,6 +309,19 @@
     "posted": "2026-10-22",
     "description": "Private driver plus office assistant role in Dubai with attractive salary.",
     "apply_url": "https://www.naukrigulf.com/private-driver-office-assistant-dubai-jobs-in-dubai-uae-in-correlin-fzco-2-to-8-years-n-cd-379450-jid-191026000682",
+    "source": "NaukriGulf"
+  },
+  {
+    "id": "nk-211026000107",
+    "title": "MEP Facility Engineer",
+    "company": "Galaxy Technical Services LLC",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "Not specified",
+    "type": "Full Time",
+    "posted": "2026-10-21",
+    "description": "MEP facility engineer role with Galaxy Technical Services in Dubai; salary negotiable on experience.",
+    "apply_url": "https://www.naukrigulf.com/mep-facility-engineer-jobs-in-dubai-uae-in-galaxy-technical-services-llc-a-subsidiary-of-multiline-group-of-companies-5-to-10-years-n-cd-222535-jid-211026000107",
     "source": "NaukriGulf"
   },
   {
@@ -507,6 +663,32 @@
     "type": "Full Time"
   },
   {
+    "id": "nk-191026000270",
+    "title": "Luxury Car Driver",
+    "company": "Top Auto Garage (Jeep, Dodge, Ram, Chrysler specialists)",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "AED 2,500 - 3,000",
+    "type": "Full Time",
+    "posted": "2026-10-19",
+    "description": "Luxury car driver for a Jeep, Dodge, Ram and Chrysler specialist garage in Dubai.",
+    "apply_url": "https://www.naukrigulf.com/luxury-car-driver-jobs-in-dubai-uae-in-top-auto-garage-in-jeep-dodge-ram-chrysler-specialists-3-to-8-years-n-cd-379298-jid-191026000270",
+    "source": "NaukriGulf"
+  },
+  {
+    "id": "nk-191026000187",
+    "title": "Driver Cum Technician",
+    "company": "Classic Apex technical Services LLC",
+    "location": "Dubai, UAE",
+    "country": "UAE",
+    "salary": "AED 1,700 - 2,500",
+    "type": "Full Time",
+    "posted": "2026-10-19",
+    "description": "Driver-plus-technician role with a technical services company in Dubai.",
+    "apply_url": "https://www.naukrigulf.com/driver-cum-technician-jobs-in-dubai-uae-in-classic-apex-technical-services-llc-1-to-6-years-n-cd-379256-jid-191026000187",
+    "source": "NaukriGulf"
+  },
+  {
     "apply_url": "https://www.gulftalent.com/qatar/jobs/hotel-cleanliness-expert-648455",
     "company": "Marriott International",
     "country": "Qatar",
@@ -648,6 +830,19 @@
     "source": "NaukriGulf",
     "title": "Auto Technician",
     "type": "Full Time"
+  },
+  {
+    "id": "nk-181026000160",
+    "title": "Driver Light",
+    "company": "Al Baraka",
+    "location": "Dubai / Ajman / Sharjah, UAE",
+    "country": "UAE",
+    "salary": "AED 2,000 - 2,500",
+    "type": "Full Time",
+    "posted": "2026-10-18",
+    "description": "Light driver role with Al Baraka across Dubai, Ajman and Sharjah.",
+    "apply_url": "https://www.naukrigulf.com/driver-light-jobs-in-dubai-uae-in-al-baraka-1-year-n-cd-379114-jid-181026000160",
+    "source": "NaukriGulf"
   },
   {
     "id": "bayt-electrical-technician-iffco",
