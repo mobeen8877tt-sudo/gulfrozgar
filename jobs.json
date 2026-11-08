@@ -1,5 +1,31 @@
 [
   {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/autocad-designer-655032",
+    "company": "A Leading Interior and Fit-out Company in the UAE",
+    "country": "UAE",
+    "description": "AutoCAD designer for a Dubai fit-out company, preparing 2D/3D drawings and joinery details.",
+    "id": "gt-655032",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-07",
+    "salary": "Not specified",
+    "source": "GulfTalent",
+    "title": "AutoCAD Designer",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/sales-representative-644899",
+    "company": "RTC-1 Employment Services",
+    "country": "UAE",
+    "description": "Arabic-speaking retail sales rep in Abu Dhabi selling wearable health devices to customers.",
+    "id": "gt-644899",
+    "location": "Abu Dhabi, UAE",
+    "posted": "2026-11-07",
+    "salary": "Up to 15,000 AED",
+    "source": "GulfTalent",
+    "title": "Sales Representative",
+    "type": "Full Time"
+  },
+  {
     "apply_url": "https://www.naukrigulf.com/heavy-trailer-driver-jobs-in-dubai-uae-in-abu-dhabi-national-company-for-building-materials-2-to-5-years-n-cd-132399-jid-061126000202",
     "company": "ABU DHABI NATIONAL COMPANY FOR BUILDING MATERIALS",
     "country": "UAE",
@@ -36,6 +62,45 @@
     "salary": "2,500 - 2,750 AED",
     "source": "NaukriGulf",
     "title": "Mini Bus Driver (Category 3/5)",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/quality-control-engineer-654704",
+    "company": "Sembol Construction",
+    "country": "UAE",
+    "description": "Quality control engineer for Dubai construction projects, inspecting materials and workmanship.",
+    "id": "gt-654704",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-06",
+    "salary": "Not specified",
+    "source": "GulfTalent",
+    "title": "Quality Control Engineer",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/b2b-sales-representative-international-ventures-654697",
+    "company": "RTC-1 Employment Services",
+    "country": "UAE",
+    "description": "B2B sales rep in Dubai making discovery calls, qualifying leads and handing them to sales.",
+    "id": "gt-654697",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-06",
+    "salary": "Up to 15,000 AED",
+    "source": "GulfTalent",
+    "title": "B2B Sales Representative - International Ventures",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/civil-inspector-654696",
+    "company": "Al Wasl Al Jadeed Consultants",
+    "country": "UAE",
+    "description": "Civil inspector for a Dubai engineering consultancy, monitoring daily site activities and inspections.",
+    "id": "gt-654696",
+    "location": "UAE",
+    "posted": "2026-11-06",
+    "salary": "Not specified",
+    "source": "GulfTalent",
+    "title": "Civil Inspector",
     "type": "Full Time"
   },
   {
