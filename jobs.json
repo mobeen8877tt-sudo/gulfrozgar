@@ -1,5 +1,44 @@
 [
   {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/logistics-coordinator-655188",
+    "company": "Agile Consultants",
+    "country": "UAE",
+    "description": "Logistics coordinator for Dubai fit-out projects, handling shipping documents, customs clearance and material deliveries.",
+    "id": "gt-655188",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-08",
+    "salary": "AED 6,000 - 9,000/month",
+    "source": "GulfTalent",
+    "title": "Logistics Coordinator",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/business-development-executive-655035",
+    "company": "TalentGrade",
+    "country": "UAE",
+    "description": "Business development executive in Dubai finding new clients across healthcare, technology and hospitality sectors.",
+    "id": "gt-655035",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-07",
+    "salary": "Not specified",
+    "source": "GulfTalent",
+    "title": "Business Development Executive",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/income-auditor-655034",
+    "company": "RTC-1 Employment Services",
+    "country": "UAE",
+    "description": "Income auditor for a 5-star Dubai hotel, reconciling daily revenues from rooms, restaurants and other departments.",
+    "id": "gt-655034",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-07",
+    "salary": "Up to 3,000 AED",
+    "source": "GulfTalent",
+    "title": "Income Auditor",
+    "type": "Full Time"
+  },
+  {
     "apply_url": "https://www.gulftalent.com/uae/jobs/autocad-designer-655032",
     "company": "A Leading Interior and Fit-out Company in the UAE",
     "country": "UAE",
@@ -169,6 +208,19 @@
     "type": "Full Time"
   },
   {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/land-surveyor-654688",
+    "company": "Prompt General Contracting",
+    "country": "UAE",
+    "description": "Land surveyor for Abu Dhabi construction projects, doing field surveys, setting out works and checking site levels.",
+    "id": "gt-654688",
+    "location": "Abu Dhabi, UAE",
+    "posted": "2026-11-06",
+    "salary": "Not specified",
+    "source": "GulfTalent",
+    "title": "Land Surveyor",
+    "type": "Full Time"
+  },
+  {
     "apply_url": "https://www.gulftalent.com/uae/jobs/front-desk-receptionist-group-of-company-654683",
     "company": "RTC-1 Employment Services",
     "country": "UAE",
@@ -205,6 +257,19 @@
     "salary": "4,000 - 4,500 AED",
     "source": "GulfTalent",
     "title": "Production Data Controller",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/structural-draughtsman-654277",
+    "company": "Al Ashram Contracting",
+    "country": "UAE",
+    "description": "Structural draughtsman in Dubai preparing accurate structural drawings and models for construction projects.",
+    "id": "gt-654277",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-05",
+    "salary": "Not specified",
+    "source": "GulfTalent",
+    "title": "Structural Draughtsman",
     "type": "Full Time"
   },
   {
@@ -520,6 +585,20 @@
     "source": "GulfTalent"
   },
   {
+    "apply_url": "https://www.naukrigulf.com/security-guard-supervisor-jobs-in-dubai-uae-in-asas-group-holding-2-to-4-years-n-cd-379268-jid-291026000271",
+    "company": "ASAS Group Holding",
+    "country": "UAE",
+    "description": "Security guard supervisor in Dubai with ASAS Group Holding, 2-4 years experience, housing and medical benefits.",
+    "experience": "2-4 years",
+    "id": "nk-291026000271",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-01",
+    "salary": "Not specified",
+    "source": "NaukriGulf",
+    "title": "Security Guard Supervisor",
+    "type": "Full Time"
+  },
+  {
     "id": "gt-652776",
     "title": "Marketing Coordinator",
     "company": "Agile Consultants",
@@ -767,6 +846,20 @@
     "source": "NaukriGulf"
   },
   {
+    "apply_url": "https://www.naukrigulf.com/security-guard-jobs-in-dubai-uae-in-confidential-1-to-6-years-n-jid-281026000340",
+    "company": "Confidential Company",
+    "country": "UAE",
+    "description": "Security guard in Dubai, 1 vacancy, 1-6 years experience, salary AED 2,000-2,500 per month.",
+    "experience": "1-6 years",
+    "id": "nk-281026000340",
+    "location": "Dubai, UAE",
+    "posted": "2026-10-29",
+    "salary": "AED 2,000-2,500/month",
+    "source": "NaukriGulf",
+    "title": "Security Guard",
+    "type": "Full Time"
+  },
+  {
     "id": "gt-652218",
     "title": "Housekeeping Supervisor",
     "company": "Hilton Luxor Resort & Spa",
@@ -1012,6 +1105,20 @@
     "description": "Full-time driving role in Dubai through a manpower services company, open to applicants of any nationality.",
     "apply_url": "https://www.naukrigulf.com/driver-jobs-in-dubai-uae-in-jumbo-manpower-and-services-llc-2-to-7-years-n-cd-174465-jid-271026000123",
     "source": "NaukriGulf"
+  },
+  {
+    "apply_url": "https://www.naukrigulf.com/security-incharge-jobs-in-dubai-uae-in-confidential-3-to-8-years-n-jid-271026000119",
+    "company": "Confidential Company",
+    "country": "UAE",
+    "description": "Security incharge in Dubai, 1 vacancy, 3-8 years experience, open to Indian, Pakistani and Nepali nationals.",
+    "experience": "3-8 years",
+    "id": "nk-271026000119",
+    "location": "Dubai, UAE",
+    "posted": "2026-10-27",
+    "salary": "Not specified",
+    "source": "NaukriGulf",
+    "title": "Security Incharge",
+    "type": "Full Time"
   },
   {
     "id": "nk-261026000268",
