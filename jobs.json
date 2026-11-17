@@ -1,5 +1,83 @@
 [
   {
+    "apply_url": "https://www.bayt.com/en/uae/jobs/housekeeping-assistant-75442871/",
+    "company": "IHCL",
+    "country": "UAE",
+    "description": "Housekeeping assistant keeping guest areas clean and tidy at an IHCL hotel in Dubai.",
+    "id": "bt-75442871",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-17",
+    "salary": "Not specified",
+    "source": "Bayt",
+    "title": "Housekeeping Assistant",
+    "type": "Not specified"
+  },
+  {
+    "apply_url": "https://www.bayt.com/en/uae/jobs/housekeeping-attendant-75434389/",
+    "company": "Kerzner International Management",
+    "country": "UAE",
+    "description": "Housekeeping attendant cleaning guest rooms at Bab Al Shams Desert Resort in Dubai.",
+    "id": "bt-75434389",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-17",
+    "salary": "Not specified",
+    "source": "Bayt",
+    "title": "Housekeeping Attendant",
+    "type": "Not specified"
+  },
+  {
+    "apply_url": "https://www.naukrigulf.com/forklift-operator-jobs-in-dubai-uae-in-confidential-2-to-5-years-n-jid-161126000230",
+    "company": "Confidential Company",
+    "country": "UAE",
+    "description": "Forklift operator for a Dubai (Jebel Ali) employer, 2-5 years of experience moving and stacking warehouse goods.",
+    "id": "nk-161126000230",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-16",
+    "salary": "Not specified",
+    "source": "NaukriGulf",
+    "title": "Forklift Operator",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.naukrigulf.com/manual-car-driver-jobs-in-sharjah-uae-in-bin-sahoo-electronics-services-1-to-2-years-n-cd-380772-jid-131126000095",
+    "company": "Bin Sahoo Electronics Services",
+    "country": "UAE",
+    "description": "Manual car driver with a UAE licence for an electronics services company in Sharjah, 1-2 years of driving experience.",
+    "id": "nk-131126000095",
+    "location": "Sharjah, UAE",
+    "posted": "2026-11-16",
+    "salary": "AED 2,100 - 2,300/month",
+    "source": "NaukriGulf",
+    "title": "Manual Car Driver",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.gulftalent.com/saudi-arabia/jobs/storekeeper-warehouse-657868",
+    "company": "RTC-1 Employment Services",
+    "country": "Saudi Arabia",
+    "description": "Warehouse storekeeper managing receiving, storage, picking and dispatch with SAP records for a tissue manufacturer in Jubail, with accommodation and transport.",
+    "id": "gt-657868",
+    "location": "Jubail, Saudi Arabia",
+    "posted": "2026-11-16",
+    "salary": "SAR up to 4,000/month",
+    "source": "GulfTalent",
+    "title": "Storekeeper - Warehouse",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.gulftalent.com/uae/jobs/front-desk-officer-657859",
+    "company": "Saint-Gobain",
+    "country": "UAE",
+    "description": "Front desk officer welcoming guests, handling calls and correspondence, and supporting office admin at a Saint-Gobain office in Abu Dhabi.",
+    "id": "gt-657859",
+    "location": "Abu Dhabi, UAE",
+    "posted": "2026-11-16",
+    "salary": "AED 3,500 - 4,000/month",
+    "source": "GulfTalent",
+    "title": "Front Desk Officer",
+    "type": "Contract"
+  },
+  {
     "id": "bt-75422021",
     "title": "Retail Associate",
     "company": "MIRAL",
@@ -11,6 +89,19 @@
     "description": "Retail associate helping guests and handling sales at Miral Experiences attractions across the UAE.",
     "apply_url": "https://www.bayt.com/en/uae/jobs/retail-associate-75422021/",
     "source": "Bayt"
+  },
+  {
+    "apply_url": "https://www.bayt.com/en/uae/jobs/bus-driver-light-or-heavy-bus-licence-5509051/",
+    "company": "GGEZ Gaming Venue LLC",
+    "country": "UAE",
+    "description": "Bus driver with a light or heavy bus licence transporting staff and guests for a Dubai gaming venue, employment visa provided.",
+    "id": "bt-5509051",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-16",
+    "salary": "AED 3,000/month",
+    "source": "Bayt",
+    "title": "Bus Driver (Light or Heavy Bus Licence)",
+    "type": "Full Time"
   },
   {
     "id": "nk-141126000031",
