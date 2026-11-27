@@ -1,5 +1,31 @@
 [
   {
+    "apply_url": "https://www.bayt.com/en/uae/jobs/en-housekeeping-attendant-75514302/",
+    "company": "AccorHotels Middle East",
+    "country": "UAE",
+    "description": "Hotel housekeeping attendant who cleans assigned guest rooms to standard, personalizes the guest experience, and protects guests' privacy and belongings.",
+    "id": "bayt-75514302",
+    "location": "Abu Dhabi, UAE",
+    "posted": "2026-11-27",
+    "salary": "Not specified",
+    "source": "Bayt",
+    "title": "Housekeeping Attendant",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.bayt.com/en/uae/jobs/housekeeping-room-attendant-holiday-inn-staybridge-suites-dubai-business-bay-75512203/",
+    "company": "InterContinental Hotels Group",
+    "country": "UAE",
+    "description": "Hotel room attendant who cleans and prepares guest rooms and bathrooms to brand standards, makes beds, replenishes amenities, and reports maintenance and safety issues.",
+    "id": "bayt-75512203",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-26",
+    "salary": "Not specified",
+    "source": "Bayt",
+    "title": "Housekeeping Room Attendant",
+    "type": "Full Time"
+  },
+  {
     "apply_url": "https://www.bayt.com/en/uae/jobs/helper-jobs/?filters%5bjb_last_modification_date_interval%5d%5b%5d=3&jobId=75511030",
     "company": "IHCL",
     "country": "UAE",
@@ -88,6 +114,19 @@
     "salary": "Not specified",
     "source": "GulfTalent",
     "title": "Office Cleaner",
+    "type": "Full Time"
+  },
+  {
+    "apply_url": "https://www.bayt.com/en/uae/jobs/kitchen-steward-cleaner-5513427/",
+    "company": "RMSV Restaurant LLC",
+    "country": "UAE",
+    "description": "Entry-level kitchen steward who washes dishes and utensils, cleans kitchen surfaces and floors, and helps receive deliveries at a meal-prep kitchen in Al Quoz, Dubai.",
+    "id": "bayt-5513427",
+    "location": "Dubai, UAE",
+    "posted": "2026-11-25",
+    "salary": "AED 1,836 - 3,673",
+    "source": "Bayt",
+    "title": "Kitchen Steward / Cleaner",
     "type": "Full Time"
   },
   {
